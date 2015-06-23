@@ -6,36 +6,55 @@ using System.Threading.Tasks;
 
 namespace Constants
 {
+    public class Class
+    {
+        string Name;
+        string Icon;
+        IList<Specialization> Specializations;
+    }
+
+    public class Spell
+    {
+        string Name;
+        string Icon;
+        bool Specialized;
+    }
+
+    public static class Templates
+    {
+        
+    }
+
     public static class Constants
     {
-        public static class HKNConstants
+        public static class HKN
         {
             
         }
 
-        public static class JambaConstants
+        public static class Jamba
         {
             
         }
 
-        public static class SettingsConstants
+        public static class Settings
         {
             
         }
 
-        public static class GeneralConstants
+        public static class General
         {
             
         }
 
-        public static class ClassConstants
+        public static class Classes
         {
-            
+
         }
 
-        public static class SpellConstants
+        public static class Spells
         {
-            
+
         }
     }
 }
