@@ -10,18 +10,18 @@ namespace TeamManager
     {
         [XmlAttribute]
         public string Name { get; set; }
-        public List<Toon> ToonsInTeam { get; set; }
+        public List<TeamToon> ToonsInTeam { get; set; }
 
         public Team()
         {
-            ToonsInTeam = new List<Toon>();
+            ToonsInTeam = new List<TeamToon>();
         }
 
         public void AddToon(Toon toon)
         {
             if (!ContainsToon(toon.Name))
             {
-                ToonsInTeam.Add(toon);
+                ToonsInTeam.Add(new TeamToon(toon));
             }
         }
 
@@ -38,7 +38,7 @@ namespace TeamManager
             return ToonsInTeam.Any(a => a.Name.Equals(toonName));
         }
 
-        public Toon GetToon(string toonName)
+        public TeamToon GetToon(string toonName)
         {
             return ToonsInTeam.First(f => f.Name.Equals(toonName));
         }

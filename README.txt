@@ -9,7 +9,7 @@ HKNManager		-	Manager responsible for generating HKN scripts and routines from c
 JambaManager	-	Jafula's Awesome MultiBoxer Assistant Manager is reponsible for frontend setup for the jamba addon 
 					for the teams and toons to keep consistent configuration options, movable/assignable macros and much more.
 
-SettingsManager -	Manager responsible for saving settings about the application itself, saving files in general.
+SettingsManager -	Manager responsible for saving settings about the application itself, saving and loading serialization files in general.
 
 TeamManager		-	Manager responsible for setting up teams, moving toons around, easily building saved macros with
 					a single click, just restart the game and the team is setup correctly again.

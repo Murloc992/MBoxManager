@@ -6,47 +6,52 @@ using System.Threading.Tasks;
 
 namespace Constants
 {
-
-    public enum ToonClasses
-    {
-        DeathKnight,
-    }
-
-    public enum ToonSpecializations
-    {
-        Frost,
-        Unholy,
-        Blood,
-
-
-    }
-
-    public class ToonSpecialization
-    {
-
-    }
-
-    public class ToonClass
-    {
-        string Name;
-        string Icon;
-        List<ToonSpecialization> Specializations;
-    }
-
-    public class Spell
-    {
-        string Name;
-        string Icon;
-        bool Specialized;
-    }
-
-    public static class Templates
-    {
-
-    }
-
     public static class MBConstants
     {
+        public enum ToonClasses
+        {
+            DeathKnight,
+            Druid,
+            Hunter,
+            Mage,
+            Paladin,
+            Priest,
+            Rogue,
+            Shaman,
+            Warlock,
+            Warrior
+        }
+
+        public enum ClassSpecializations
+        {
+            Affliction,
+            Arcane,
+            Arms,
+            Assasination,
+            Balance,
+            Beastmaster,
+            Blood,
+            Combat,
+            Demonology,
+            Destruction,
+            Discipline,
+            Elemental,
+            Enhancement,
+            Feral,
+            Fire,
+            Frost,
+            Fury,
+            Holy,
+            Marksmanship,
+            Protection,
+            Restoration,
+            Retribution,
+            Shadow,
+            Subtlety,
+            Survival,
+            Unholy
+        }
+
         public enum ConfigFiles
         {
             Application,

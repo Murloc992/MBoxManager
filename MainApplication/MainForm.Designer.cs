@@ -37,6 +37,12 @@
             this.CreateTeamButton = new System.Windows.Forms.Button();
             this.ToonManagerBox = new System.Windows.Forms.GroupBox();
             this.TeamMemberOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TeamMemberInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.MemberInfoNicknameTextbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.MemberInfoClassComboBox = new System.Windows.Forms.ComboBox();
+            this.MemberInfoSpecializationComboBox = new System.Windows.Forms.ComboBox();
             this.RemoveFromTeamButton = new System.Windows.Forms.Button();
             this.AddToTeamButton = new System.Windows.Forms.Button();
             this.TeamCompositionGroupBox = new System.Windows.Forms.GroupBox();
@@ -55,21 +61,16 @@
             this.setHKNDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reInstallJAMBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.TeamMemberInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.MemberInfoSpecializationComboBox = new System.Windows.Forms.ComboBox();
-            this.MemberInfoClassComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.MemberInfoNicknameTextbox = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RenameTeamButton = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.TeamTab.SuspendLayout();
             this.TeamsGroupBox.SuspendLayout();
             this.ToonManagerBox.SuspendLayout();
             this.TeamMemberOptionsGroupBox.SuspendLayout();
+            this.TeamMemberInfoGroupBox.SuspendLayout();
             this.TeamCompositionGroupBox.SuspendLayout();
             this.DetectedToonsGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.TeamMemberInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl
@@ -99,6 +100,7 @@
             // 
             // TeamsGroupBox
             // 
+            this.TeamsGroupBox.Controls.Add(this.RenameTeamButton);
             this.TeamsGroupBox.Controls.Add(this.CopyTeamButton);
             this.TeamsGroupBox.Controls.Add(this.TeamSelectComboBox);
             this.TeamsGroupBox.Controls.Add(this.DeleteTeamButton);
@@ -136,6 +138,7 @@
             this.DeleteTeamButton.TabIndex = 4;
             this.DeleteTeamButton.Text = "Delete";
             this.DeleteTeamButton.UseVisualStyleBackColor = true;
+            this.DeleteTeamButton.Click += new System.EventHandler(this.DeleteTeamButton_Click);
             // 
             // CreateTeamButton
             // 
@@ -172,6 +175,63 @@
             this.TeamMemberOptionsGroupBox.TabIndex = 3;
             this.TeamMemberOptionsGroupBox.TabStop = false;
             this.TeamMemberOptionsGroupBox.Text = "Team Member Options";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(7, 81);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(433, 220);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // TeamMemberInfoGroupBox
+            // 
+            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoNicknameTextbox);
+            this.TeamMemberInfoGroupBox.Controls.Add(this.label1);
+            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoClassComboBox);
+            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoSpecializationComboBox);
+            this.TeamMemberInfoGroupBox.Location = new System.Drawing.Point(6, 20);
+            this.TeamMemberInfoGroupBox.Name = "TeamMemberInfoGroupBox";
+            this.TeamMemberInfoGroupBox.Size = new System.Drawing.Size(428, 54);
+            this.TeamMemberInfoGroupBox.TabIndex = 0;
+            this.TeamMemberInfoGroupBox.TabStop = false;
+            this.TeamMemberInfoGroupBox.Text = "Member info";
+            // 
+            // MemberInfoNicknameTextbox
+            // 
+            this.MemberInfoNicknameTextbox.Enabled = false;
+            this.MemberInfoNicknameTextbox.Location = new System.Drawing.Point(68, 19);
+            this.MemberInfoNicknameTextbox.Name = "MemberInfoNicknameTextbox";
+            this.MemberInfoNicknameTextbox.Size = new System.Drawing.Size(100, 20);
+            this.MemberInfoNicknameTextbox.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Nickname:";
+            // 
+            // MemberInfoClassComboBox
+            // 
+            this.MemberInfoClassComboBox.FormattingEnabled = true;
+            this.MemberInfoClassComboBox.Location = new System.Drawing.Point(174, 19);
+            this.MemberInfoClassComboBox.Name = "MemberInfoClassComboBox";
+            this.MemberInfoClassComboBox.Size = new System.Drawing.Size(121, 21);
+            this.MemberInfoClassComboBox.TabIndex = 1;
+            this.MemberInfoClassComboBox.Text = "Class";
+            // 
+            // MemberInfoSpecializationComboBox
+            // 
+            this.MemberInfoSpecializationComboBox.FormattingEnabled = true;
+            this.MemberInfoSpecializationComboBox.Location = new System.Drawing.Point(301, 19);
+            this.MemberInfoSpecializationComboBox.Name = "MemberInfoSpecializationComboBox";
+            this.MemberInfoSpecializationComboBox.Size = new System.Drawing.Size(121, 21);
+            this.MemberInfoSpecializationComboBox.TabIndex = 0;
+            this.MemberInfoSpecializationComboBox.Text = "Specialization";
             // 
             // RemoveFromTeamButton
             // 
@@ -330,62 +390,14 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // TeamMemberInfoGroupBox
+            // RenameTeamButton
             // 
-            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoNicknameTextbox);
-            this.TeamMemberInfoGroupBox.Controls.Add(this.label1);
-            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoClassComboBox);
-            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoSpecializationComboBox);
-            this.TeamMemberInfoGroupBox.Location = new System.Drawing.Point(6, 20);
-            this.TeamMemberInfoGroupBox.Name = "TeamMemberInfoGroupBox";
-            this.TeamMemberInfoGroupBox.Size = new System.Drawing.Size(428, 54);
-            this.TeamMemberInfoGroupBox.TabIndex = 0;
-            this.TeamMemberInfoGroupBox.TabStop = false;
-            this.TeamMemberInfoGroupBox.Text = "Member info";
-            // 
-            // MemberInfoSpecializationComboBox
-            // 
-            this.MemberInfoSpecializationComboBox.FormattingEnabled = true;
-            this.MemberInfoSpecializationComboBox.Location = new System.Drawing.Point(301, 19);
-            this.MemberInfoSpecializationComboBox.Name = "MemberInfoSpecializationComboBox";
-            this.MemberInfoSpecializationComboBox.Size = new System.Drawing.Size(121, 21);
-            this.MemberInfoSpecializationComboBox.TabIndex = 0;
-            this.MemberInfoSpecializationComboBox.Text = "Specialization";
-            // 
-            // MemberInfoClassComboBox
-            // 
-            this.MemberInfoClassComboBox.FormattingEnabled = true;
-            this.MemberInfoClassComboBox.Location = new System.Drawing.Point(174, 19);
-            this.MemberInfoClassComboBox.Name = "MemberInfoClassComboBox";
-            this.MemberInfoClassComboBox.Size = new System.Drawing.Size(121, 21);
-            this.MemberInfoClassComboBox.TabIndex = 1;
-            this.MemberInfoClassComboBox.Text = "Class";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Nickname:";
-            // 
-            // MemberInfoNicknameTextbox
-            // 
-            this.MemberInfoNicknameTextbox.Enabled = false;
-            this.MemberInfoNicknameTextbox.Location = new System.Drawing.Point(68, 19);
-            this.MemberInfoNicknameTextbox.Name = "MemberInfoNicknameTextbox";
-            this.MemberInfoNicknameTextbox.Size = new System.Drawing.Size(100, 20);
-            this.MemberInfoNicknameTextbox.TabIndex = 3;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(7, 81);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(433, 220);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.RenameTeamButton.Location = new System.Drawing.Point(523, 17);
+            this.RenameTeamButton.Name = "RenameTeamButton";
+            this.RenameTeamButton.Size = new System.Drawing.Size(75, 23);
+            this.RenameTeamButton.TabIndex = 6;
+            this.RenameTeamButton.Text = "Rename";
+            this.RenameTeamButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -403,13 +415,13 @@
             this.TeamsGroupBox.ResumeLayout(false);
             this.ToonManagerBox.ResumeLayout(false);
             this.TeamMemberOptionsGroupBox.ResumeLayout(false);
+            this.TeamMemberInfoGroupBox.ResumeLayout(false);
+            this.TeamMemberInfoGroupBox.PerformLayout();
             this.TeamCompositionGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.TeamMemberInfoGroupBox.ResumeLayout(false);
-            this.TeamMemberInfoGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,6 +462,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox MemberInfoNicknameTextbox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button RenameTeamButton;
 
     }
 }

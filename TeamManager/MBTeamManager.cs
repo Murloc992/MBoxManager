@@ -22,6 +22,7 @@ namespace TeamManager
     public class MBTeamList
     {
         public List<Team> Teams { get; set; }
+        [XmlAttribute]
         public string ActiveTeamName { get; set; }
         [XmlIgnore]
         public Team ActiveTeam

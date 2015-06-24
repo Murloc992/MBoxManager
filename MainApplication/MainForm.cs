@@ -42,7 +42,6 @@ namespace MainApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Initialize the application and it's modules
-
             //create a settings manager
             _settingsManager = new MBSettingsManager();
             //load the application config
@@ -68,6 +67,8 @@ namespace MainApplication
                 var txt = testDialog.Text;
                 var teamName = txt.OnlyLettersAndDigits();
 
+                if (string.IsNullOrEmpty(teamName)) return;
+
                 _teamManager.CreateTeam(teamName);
 
                 var team = _teamManager.GetTeam(teamName);
@@ -82,9 +83,12 @@ namespace MainApplication
 
         private void LoadTeams()
         {
-            TeamSelectComboBox.Items.Clear();
-            TeamSelectComboBox.Items.AddRange(_teamManager.TeamList.Teams.ToArray());
-            TeamSelectComboBox.SelectedIndex = TeamSelectComboBox.Items.IndexOf(_teamManager.TeamList.ActiveTeam);
+            if (_teamManager.TeamList.Teams.Any())
+            {
+                TeamSelectComboBox.Items.Clear();
+                TeamSelectComboBox.Items.AddRange(_teamManager.TeamList.Teams.ToArray());
+                TeamSelectComboBox.SelectedIndex = TeamSelectComboBox.Items.IndexOf(_teamManager.TeamList.ActiveTeam);
+            }
         }
 
         private void RefreshCurrentTeam()
@@ -179,11 +183,20 @@ namespace MainApplication
 
         private void CurrentTeamToonList_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar.Equals('\b'))
+            if (e.KeyChar.Equals('\b') && CurrentTeamToonList.SelectedIndex != -1)
             {
-                _teamManager.TeamList.ActiveTeam.RemoveToon(CurrentTeamToonList.SelectedItem as string);
+                _teamManager.TeamList.ActiveTeam.RemoveToon(CurrentTeamToonList.SelectedItem.ToString());
                 RefreshCurrentTeam();
+                if (CurrentTeamToonList.Items.Count > 0)
+                {
+                    CurrentTeamToonList.SelectedIndex = 0;
+                }
             }
+        }
+
+        private void DeleteTeamButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -23,6 +23,15 @@ namespace TeamManager
     [Serializable]
     public class TeamToon : Toon
     {
-        public bool UseInFTL { get; set; }
+        public TeamToon()
+        {
+            
+        }
+        public TeamToon(Toon other)
+        {
+            Name = other.Name;
+            Class = other.Class;
+            Specialization = other.Specialization;
+        }
     }
 }
