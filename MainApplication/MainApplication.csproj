@@ -52,6 +52,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextInputForm.Designer.cs">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -61,6 +70,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TextInputForm.resx">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,6 +90,26 @@
     <ProjectReference Include="..\Constants\Constants.csproj">
       <Project>{f28cc0de-a012-4a6a-83ea-cd485f5aab03}</Project>
       <Name>Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{8521289d-d2c9-4dfa-b317-abcb83a3c876}</Project>
+      <Name>Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HKNManager\HKNManager.csproj">
+      <Project>{bc63948e-f062-4bed-9a48-4eb5e8f5da90}</Project>
+      <Name>HKNManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JambaManager\JambaManager.csproj">
+      <Project>{52f09f3b-f1ae-42e5-aade-8cc0ae339952}</Project>
+      <Name>JambaManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SettingsManager\SettingsManager.csproj">
+      <Project>{46adf360-8d74-4f8a-bf9c-8db82d09ae6c}</Project>
+      <Name>SettingsManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamManager\TeamManager.csproj">
+      <Project>{b7f37cfb-0a16-4e8c-a3ef-12e97d440003}</Project>
+      <Name>TeamManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

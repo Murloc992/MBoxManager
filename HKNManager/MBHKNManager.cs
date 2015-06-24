@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TeamManager
+namespace HKNManager
 {
-    public class TeamManager
+    public class MBHKNManager
     {
     }
 }

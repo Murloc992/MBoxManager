@@ -4,14 +4,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamManager", "TeamManager\TeamManager.csproj", "{B7F37CFB-0A16-4E8C-A3EF-12E97D440003}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsManager", "SettingsManager\SettingsManager.csproj", "{46ADF360-8D74-4F8A-BF9C-8DB82D09AE6C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HKNManager", "HKNManager\HKNManager.csproj", "{BC63948E-F062-4BED-9A48-4EB5E8F5DA90}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JambaManager", "JambaManager\JambaManager.csproj", "{52F09F3B-F1AE-42E5-AADE-8CC0AE339952}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainApplication", "MainApplication\MainApplication.csproj", "{FF8E06DB-4FA8-409E-A17A-50098F431B73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}"
 EndProject
@@ -21,6 +36,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{8521289D-D2C9-4DFA-B317-ABCB83A3C876}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +72,10 @@ Global
 		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +86,6 @@ Global
 		{BC63948E-F062-4BED-9A48-4EB5E8F5DA90} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 		{52F09F3B-F1AE-42E5-AADE-8CC0AE339952} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 	EndGlobalSection
 EndGlobal

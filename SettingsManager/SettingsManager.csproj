@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,13 +40,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SettingsManager.cs" />
+    <Compile Include="MBSettingsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Constants\Constants.csproj">
       <Project>{f28cc0de-a012-4a6a-83ea-cd485f5aab03}</Project>
       <Name>Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{8521289d-d2c9-4dfa-b317-abcb83a3c876}</Project>
+      <Name>Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HKNManager\HKNManager.csproj">
+      <Project>{bc63948e-f062-4bed-9a48-4eb5e8f5da90}</Project>
+      <Name>HKNManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JambaManager\JambaManager.csproj">
+      <Project>{52f09f3b-f1ae-42e5-aade-8cc0ae339952}</Project>
+      <Name>JambaManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamManager\TeamManager.csproj">
+      <Project>{b7f37cfb-0a16-4e8c-a3ef-12e97d440003}</Project>
+      <Name>TeamManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

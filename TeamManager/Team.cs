@@ -1,32 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace TeamManager
 {
+    [Serializable]
     public class Team
     {
-        private readonly IDictionary<string, Toon> _toonsInTeam;
+        [XmlAttribute]
+        public string Name { get; set; }
+        public List<Toon> ToonsInTeam { get; set; }
 
         public Team()
         {
-            _toonsInTeam = new Dictionary<string, Toon>();
+            ToonsInTeam = new List<Toon>();
         }
 
         public void AddToon(Toon toon)
         {
             if (!ContainsToon(toon.Name))
             {
-                _toonsInTeam.Add(new KeyValuePair<string, Toon>(toon.Name, toon));
+                ToonsInTeam.Add(toon);
             }
         }
 
-        public Toon GetToon(string name)
+        public void RemoveToon(string toonName)
         {
-            return ContainsToon(name) ? _toonsInTeam[name] : null;
+            if (ContainsToon(toonName))
+            {
+                ToonsInTeam.Remove(GetToon(toonName));
+            }
         }
 
-        public bool ContainsToon(string name)
+        public bool ContainsToon(string toonName)
         {
-            return _toonsInTeam.ContainsKey(name);
+            return ToonsInTeam.Any(a => a.Name.Equals(toonName));
+        }
+
+        public Toon GetToon(string toonName)
+        {
+            return ToonsInTeam.First(f => f.Name.Equals(toonName));
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
