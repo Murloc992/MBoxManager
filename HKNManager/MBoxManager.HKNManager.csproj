@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B7F37CFB-0A16-4E8C-A3EF-12E97D440003}</ProjectGuid>
+    <ProjectGuid>{BC63948E-F062-4BED-9A48-4EB5E8F5DA90}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeamManager</RootNamespace>
-    <AssemblyName>TeamManager</AssemblyName>
+    <RootNamespace>HKNManager</RootNamespace>
+    <AssemblyName>HKNManager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,16 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="MBTeamManager.cs" />
+    <Compile Include="MBHKNManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Team.cs" />
-    <Compile Include="Toon.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Constants\Constants.csproj">
+    <ProjectReference Include="..\Constants\MBoxManager.Constants.csproj">
       <Project>{f28cc0de-a012-4a6a-83ea-cd485f5aab03}</Project>
-      <Name>Constants</Name>
+      <Name>MBoxManager.Constants</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

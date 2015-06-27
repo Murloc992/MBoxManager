@@ -43,9 +43,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Constants\Constants.csproj">
+    <ProjectReference Include="..\Constants\MBoxManager.Constants.csproj">
       <Project>{f28cc0de-a012-4a6a-83ea-cd485f5aab03}</Project>
-      <Name>Constants</Name>
+      <Name>MBoxManager.Constants</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

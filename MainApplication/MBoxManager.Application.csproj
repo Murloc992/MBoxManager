@@ -87,29 +87,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Constants\Constants.csproj">
+    <ProjectReference Include="..\Constants\MBoxManager.Constants.csproj">
       <Project>{f28cc0de-a012-4a6a-83ea-cd485f5aab03}</Project>
-      <Name>Constants</Name>
+      <Name>MBoxManager.Constants</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extensions\Extensions.csproj">
+    <ProjectReference Include="..\Extensions\MBoxManager.Extensions.csproj">
       <Project>{8521289d-d2c9-4dfa-b317-abcb83a3c876}</Project>
-      <Name>Extensions</Name>
+      <Name>MBoxManager.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HKNManager\HKNManager.csproj">
+    <ProjectReference Include="..\HKNManager\MBoxManager.HKNManager.csproj">
       <Project>{bc63948e-f062-4bed-9a48-4eb5e8f5da90}</Project>
-      <Name>HKNManager</Name>
+      <Name>MBoxManager.HKNManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\JambaManager\JambaManager.csproj">
+    <ProjectReference Include="..\JambaManager\MBoxManager.JambaManager.csproj">
       <Project>{52f09f3b-f1ae-42e5-aade-8cc0ae339952}</Project>
-      <Name>JambaManager</Name>
+      <Name>MBoxManager.JambaManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SettingsManager\SettingsManager.csproj">
+    <ProjectReference Include="..\SettingsManager\MBoxManager.SettingsManager.csproj">
       <Project>{46adf360-8d74-4f8a-bf9c-8db82d09ae6c}</Project>
-      <Name>SettingsManager</Name>
+      <Name>MBoxManager.SettingsManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamManager\TeamManager.csproj">
+    <ProjectReference Include="..\TeamManager\MBoxManager.TeamManager.csproj">
       <Project>{b7f37cfb-0a16-4e8c-a3ef-12e97d440003}</Project>
-      <Name>TeamManager</Name>
+      <Name>MBoxManager.TeamManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
