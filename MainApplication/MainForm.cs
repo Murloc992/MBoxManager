@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Constants;
@@ -19,13 +20,13 @@ namespace MainApplication
         }
         private DialogResult PreClosingConfirmation()
         {
-            DialogResult res = MessageBox.Show("Do you want to quit?", "Quit...", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult res = MessageBox.Show("Do you want to quit?", "Quit", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             return res;
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            if (PreClosingConfirmation() == DialogResult.Yes)
+            if (PreClosingConfirmation() == DialogResult.OK)
             {
                 _settingsManager.WriteConfig(MBConstants.ConfigFiles.Application, _settingsManager.mainSettings);
                 _settingsManager.WriteConfig(MBConstants.ConfigFiles.Accounts, _teamManager.AccountList);
@@ -66,7 +67,7 @@ namespace MainApplication
                 _teamManager = new MBTeamManager(accountList, _settingsManager.LoadConfig(MBConstants.ConfigFiles.Teams) as MBTeamList);
 
                 CreateAccountTreeView();
-                LoadTeams();
+            RefreshTeams();
             }
         }
 
@@ -84,31 +85,25 @@ namespace MainApplication
                 _teamManager.CreateTeam(teamName);
 
                 var team = _teamManager.GetTeam(teamName);
-
-                TeamSelectComboBox.Items.Add(team);
-                TeamSelectComboBox.SelectedItem = team;
+                _teamManager.SetCurrentTeam(team);
+                RefreshTeams();
 
                 CreateAccountTreeView();
                 RefreshToonManager();
             }
         }
 
-        private void LoadTeams()
+        private void RefreshTeams()
         {
-            if (_teamManager.TeamList.Teams.Any())
-            {
-                TeamSelectComboBox.Items.Clear();
-                TeamSelectComboBox.Items.AddRange(_teamManager.TeamList.Teams.ToArray());
-                TeamSelectComboBox.SelectedIndex = TeamSelectComboBox.Items.IndexOf(_teamManager.TeamList.ActiveTeam);
-            }
+            TeamSelectComboBox.DisplayMember = "Name";
+            TeamSelectComboBox.DataSource = new BindingSource(_teamManager.TeamList.Teams, null);
+            TeamSelectComboBox.SelectedItem = _teamManager.TeamList.ActiveTeam;
         }
 
         private void RefreshCurrentTeam()
         {
-            var selectedItem = CurrentTeamToonList.SelectedItem;
-            CurrentTeamToonList.Items.Clear();
-            CurrentTeamToonList.Items.AddRange(_teamManager.TeamList.ActiveTeam.ToonsInTeam.ToArray());
-            CurrentTeamToonList.SelectedItem = selectedItem;
+            CurrentTeamToonList.DisplayMember = "Name";
+            CurrentTeamToonList.DataSource = new BindingSource(_teamManager.TeamList.ActiveTeam.ToonsInTeam, null);
         }
 
         private void CreateAccountTreeView(bool forceRefresh = false)
@@ -190,7 +185,7 @@ namespace MainApplication
             var toon = _teamManager.AccountList.Accounts.First(f => f.Name.Equals(accountName)).Realms.First(f => f.Name.Equals(realmName)).Toons.First(f => f.Name.Equals(toonName));
 
             _teamManager.TeamList.ActiveTeam.AddToon(toon);
-            CurrentTeamToonList.Items.Add(toon);
+            RefreshCurrentTeam();
         }
 
         private void CurrentTeamToonList_KeyPress(object sender, KeyPressEventArgs e)
@@ -207,6 +202,52 @@ namespace MainApplication
         }
 
         private void DeleteTeamButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CurrentTeamToonList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CurrentTeamToonList.SelectedIndex != -1)
+            {
+                var toonName = CurrentTeamToonList.SelectedItem.ToString();
+                LoadToonInfo(toonName);
+            }
+        }
+
+        private void LoadToonInfo(string toonName)
+        {
+            TeamMemberOptionsGroupBox.Enabled = _teamManager.TeamList.ActiveTeam.ContainsToon(toonName);
+            MemberInfoNicknameTextbox.Text = toonName;
+
+            var toon = _teamManager.TeamList.ActiveTeam.GetToon(toonName);
+
+            MemberInfoIsMasterOfTeam.DataBindings.Clear();
+            MemberInfoIsMasterOfTeam.DataBindings.Add(new Binding("Checked", toon, "FTLToon"));
+
+            MemberInfoClassComboBox.DisplayMember = "Value";
+            MemberInfoClassComboBox.ValueMember = "Key";
+            MemberInfoClassComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Classes, null);
+        }
+
+        private void MemberInfoClassComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MemberInfoClassComboBox.SelectedIndex != -1)
+            {
+                var currentClass = (MBConstants.ToonClasses)MemberInfoClassComboBox.SelectedValue;
+
+                MemberInfoSpecializationComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Specializations[currentClass], null);
+                MemberInfoSpecializationComboBox.DisplayMember = "Value";
+                MemberInfoSpecializationComboBox.ValueMember = "Key";
+            }
+        }
+
+        private void MemberInfoSpecializationComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RemoveFromTeamButton_Click(object sender, EventArgs e)
         {
 
         }

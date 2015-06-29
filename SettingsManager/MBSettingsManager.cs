@@ -154,7 +154,6 @@ namespace SettingsManager
                 case MBConstants.ConfigFiles.Teams:
                     return DeserializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.TeamsFileName, typeof(MBTeamList));
             }
-
             return null;
         }
 

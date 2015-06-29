@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Constants;
 
 namespace TeamManager
 {
@@ -23,6 +24,9 @@ namespace TeamManager
     [Serializable]
     public class TeamToon : Toon
     {
+        public MBConstants.ToonClasses ToonClass { get; set; }
+        public MBConstants.ClassSpecializations ToonSpec { get; set; }
+        public bool FTLToon { get; set; }
         public TeamToon()
         {
             

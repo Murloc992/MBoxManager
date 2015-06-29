@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.TeamTab = new System.Windows.Forms.TabPage();
             this.TeamsGroupBox = new System.Windows.Forms.GroupBox();
@@ -38,7 +39,7 @@
             this.CreateTeamButton = new System.Windows.Forms.Button();
             this.ToonManagerBox = new System.Windows.Forms.GroupBox();
             this.TeamMemberOptionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FTLOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.TeamMemberInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.MemberInfoNicknameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,16 +63,18 @@
             this.setHKNDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reInstallJAMBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.teamUserControl1 = new MainApplication.MacroUserControl();
+            this.FTLOptionsUseInFTLCheckbox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.MemberInfoIsMasterOfTeam = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.TeamTab.SuspendLayout();
             this.TeamsGroupBox.SuspendLayout();
             this.ToonManagerBox.SuspendLayout();
             this.TeamMemberOptionsGroupBox.SuspendLayout();
+            this.FTLOptionsGroupBox.SuspendLayout();
             this.TeamMemberInfoGroupBox.SuspendLayout();
             this.TeamCompositionGroupBox.SuspendLayout();
             this.DetectedToonsGroupBox.SuspendLayout();
-            this.MacroTab.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,8 +181,9 @@
             // 
             // TeamMemberOptionsGroupBox
             // 
-            this.TeamMemberOptionsGroupBox.Controls.Add(this.groupBox1);
+            this.TeamMemberOptionsGroupBox.Controls.Add(this.FTLOptionsGroupBox);
             this.TeamMemberOptionsGroupBox.Controls.Add(this.TeamMemberInfoGroupBox);
+            this.TeamMemberOptionsGroupBox.Enabled = false;
             this.TeamMemberOptionsGroupBox.Location = new System.Drawing.Point(517, 19);
             this.TeamMemberOptionsGroupBox.Name = "TeamMemberOptionsGroupBox";
             this.TeamMemberOptionsGroupBox.Size = new System.Drawing.Size(440, 307);
@@ -187,24 +191,27 @@
             this.TeamMemberOptionsGroupBox.TabStop = false;
             this.TeamMemberOptionsGroupBox.Text = "Team Member Options";
             // 
-            // groupBox1
+            // FTLOptionsGroupBox
             // 
-            this.groupBox1.Location = new System.Drawing.Point(7, 81);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(433, 220);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.FTLOptionsGroupBox.Controls.Add(this.label2);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLOptionsUseInFTLCheckbox);
+            this.FTLOptionsGroupBox.Location = new System.Drawing.Point(7, 98);
+            this.FTLOptionsGroupBox.Name = "FTLOptionsGroupBox";
+            this.FTLOptionsGroupBox.Size = new System.Drawing.Size(146, 203);
+            this.FTLOptionsGroupBox.TabIndex = 1;
+            this.FTLOptionsGroupBox.TabStop = false;
+            this.FTLOptionsGroupBox.Text = "FTL Options";
             // 
             // TeamMemberInfoGroupBox
             // 
+            this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoIsMasterOfTeam);
             this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoNicknameTextbox);
             this.TeamMemberInfoGroupBox.Controls.Add(this.label1);
             this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoClassComboBox);
             this.TeamMemberInfoGroupBox.Controls.Add(this.MemberInfoSpecializationComboBox);
             this.TeamMemberInfoGroupBox.Location = new System.Drawing.Point(6, 20);
             this.TeamMemberInfoGroupBox.Name = "TeamMemberInfoGroupBox";
-            this.TeamMemberInfoGroupBox.Size = new System.Drawing.Size(428, 54);
+            this.TeamMemberInfoGroupBox.Size = new System.Drawing.Size(428, 72);
             this.TeamMemberInfoGroupBox.TabIndex = 0;
             this.TeamMemberInfoGroupBox.TabStop = false;
             this.TeamMemberInfoGroupBox.Text = "Member info";
@@ -234,6 +241,7 @@
             this.MemberInfoClassComboBox.Size = new System.Drawing.Size(121, 21);
             this.MemberInfoClassComboBox.TabIndex = 1;
             this.MemberInfoClassComboBox.Text = "Class";
+            this.MemberInfoClassComboBox.SelectedIndexChanged += new System.EventHandler(this.MemberInfoClassComboBox_SelectedIndexChanged);
             // 
             // MemberInfoSpecializationComboBox
             // 
@@ -243,6 +251,7 @@
             this.MemberInfoSpecializationComboBox.Size = new System.Drawing.Size(121, 21);
             this.MemberInfoSpecializationComboBox.TabIndex = 0;
             this.MemberInfoSpecializationComboBox.Text = "Specialization";
+            this.MemberInfoSpecializationComboBox.SelectedIndexChanged += new System.EventHandler(this.MemberInfoSpecializationComboBox_SelectedIndexChanged);
             // 
             // RemoveFromTeamButton
             // 
@@ -252,6 +261,7 @@
             this.RemoveFromTeamButton.TabIndex = 2;
             this.RemoveFromTeamButton.Text = "<<";
             this.RemoveFromTeamButton.UseVisualStyleBackColor = true;
+            this.RemoveFromTeamButton.Click += new System.EventHandler(this.RemoveFromTeamButton_Click);
             // 
             // AddToTeamButton
             // 
@@ -280,6 +290,7 @@
             this.CurrentTeamToonList.Name = "CurrentTeamToonList";
             this.CurrentTeamToonList.Size = new System.Drawing.Size(199, 251);
             this.CurrentTeamToonList.TabIndex = 0;
+            this.CurrentTeamToonList.SelectedIndexChanged += new System.EventHandler(this.CurrentTeamToonList_SelectedIndexChanged);
             this.CurrentTeamToonList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CurrentTeamToonList_KeyPress);
             // 
             // DetectedToonsGroupBox
@@ -313,7 +324,6 @@
             // 
             // MacroTab
             // 
-            this.MacroTab.Controls.Add(this.teamUserControl1);
             this.MacroTab.Location = new System.Drawing.Point(4, 22);
             this.MacroTab.Name = "MacroTab";
             this.MacroTab.Padding = new System.Windows.Forms.Padding(3);
@@ -402,12 +412,34 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // teamUserControl1
+            // FTLOptionsUseInFTLCheckbox
             // 
-            this.teamUserControl1.Location = new System.Drawing.Point(0, 0);
-            this.teamUserControl1.Name = "teamUserControl1";
-            this.teamUserControl1.Size = new System.Drawing.Size(976, 664);
-            this.teamUserControl1.TabIndex = 0;
+            this.FTLOptionsUseInFTLCheckbox.AutoSize = true;
+            this.FTLOptionsUseInFTLCheckbox.Location = new System.Drawing.Point(9, 20);
+            this.FTLOptionsUseInFTLCheckbox.Name = "FTLOptionsUseInFTLCheckbox";
+            this.FTLOptionsUseInFTLCheckbox.Size = new System.Drawing.Size(78, 17);
+            this.FTLOptionsUseInFTLCheckbox.TabIndex = 1;
+            this.FTLOptionsUseInFTLCheckbox.Text = "Use in FTL";
+            this.FTLOptionsUseInFTLCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "FTL Keys to use:";
+            // 
+            // MemberInfoIsMasterOfTeam
+            // 
+            this.MemberInfoIsMasterOfTeam.AutoSize = true;
+            this.MemberInfoIsMasterOfTeam.Location = new System.Drawing.Point(10, 49);
+            this.MemberInfoIsMasterOfTeam.Name = "MemberInfoIsMasterOfTeam";
+            this.MemberInfoIsMasterOfTeam.Size = new System.Drawing.Size(125, 17);
+            this.MemberInfoIsMasterOfTeam.TabIndex = 3;
+            this.MemberInfoIsMasterOfTeam.Text = "Is Master of the team";
+            this.MemberInfoIsMasterOfTeam.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -417,6 +449,8 @@
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.TabControl);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "MBoxManager";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -425,12 +459,13 @@
             this.TeamsGroupBox.ResumeLayout(false);
             this.ToonManagerBox.ResumeLayout(false);
             this.TeamMemberOptionsGroupBox.ResumeLayout(false);
+            this.FTLOptionsGroupBox.ResumeLayout(false);
+            this.FTLOptionsGroupBox.PerformLayout();
             this.TeamMemberInfoGroupBox.ResumeLayout(false);
             this.TeamMemberInfoGroupBox.PerformLayout();
             this.TeamCompositionGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.PerformLayout();
-            this.MacroTab.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -470,11 +505,13 @@
         private System.Windows.Forms.GroupBox TeamMemberInfoGroupBox;
         private System.Windows.Forms.ComboBox MemberInfoClassComboBox;
         private System.Windows.Forms.ComboBox MemberInfoSpecializationComboBox;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox FTLOptionsGroupBox;
         private System.Windows.Forms.TextBox MemberInfoNicknameTextbox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button RenameTeamButton;
-        private MacroUserControl teamUserControl1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox FTLOptionsUseInFTLCheckbox;
+        private System.Windows.Forms.CheckBox MemberInfoIsMasterOfTeam;
 
     }
 }

@@ -52,6 +52,107 @@ namespace Constants
             Unholy
         }
 
+        public static class ToonDescriptor
+        {
+            public static Dictionary<ToonClasses, string> Classes = new Dictionary<ToonClasses, string>
+            {
+                {ToonClasses.DeathKnight,"Death Knight"},
+                {ToonClasses.Druid,"Druid"},
+                {ToonClasses.Hunter,"Hunter"},
+                {ToonClasses.Mage,"Mage"},
+                {ToonClasses.Paladin,"Paladin"},
+                {ToonClasses.Priest,"Priest"},
+                {ToonClasses.Rogue,"Rogue"},
+                {ToonClasses.Shaman,"Shaman"},
+                {ToonClasses.Warlock,"Warlock"},
+                {ToonClasses.Warrior,"Warrior"}
+            };
+
+            public static Dictionary<ToonClasses, Dictionary<ClassSpecializations, string>> Specializations = new Dictionary<ToonClasses, Dictionary<ClassSpecializations, string>>
+            {
+                {
+                    ToonClasses.DeathKnight, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Blood,"Blood"},
+                        {ClassSpecializations.Frost,"Frost"},
+                        {ClassSpecializations.Unholy,"Unholy"}
+                    }
+                },
+                {
+                    ToonClasses.Druid, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Balance,"Balance"},
+                        {ClassSpecializations.Feral,"Feral"},
+                        {ClassSpecializations.Restoration,"Restoration"}
+                    }
+                },
+                {
+                    ToonClasses.Hunter, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Beastmaster,"Beastmaster"},
+                        {ClassSpecializations.Marksmanship,"Marksmanship"},
+                        {ClassSpecializations.Survival,"Survival"}
+                    }
+                },
+                {
+                    ToonClasses.Mage, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Arcane,"Arcane"},
+                        {ClassSpecializations.Frost,"Frost"},
+                        {ClassSpecializations.Fire,"Fire"}
+                    }
+                },
+                {
+                    ToonClasses.Paladin, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Holy,"Holy"},
+                        {ClassSpecializations.Protection,"Protection"},
+                        {ClassSpecializations.Retribution,"Retribution"}
+                    }
+                },
+                {
+                    ToonClasses.Priest, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Discipline,"Discipline"},
+                        {ClassSpecializations.Holy,"Holy"},
+                        {ClassSpecializations.Shadow,"Shadow"}
+                    }
+                },
+                {
+                    ToonClasses.Rogue, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Assasination,"Assasination"},
+                        {ClassSpecializations.Combat,"Combat"},
+                        {ClassSpecializations.Subtlety,"Subtlety"}
+                    }
+                },
+                {
+                    ToonClasses.Shaman, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Elemental,"Elemental"},
+                        {ClassSpecializations.Enhancement,"Enhancement"},
+                        {ClassSpecializations.Restoration,"Restoration"}
+                    }
+                },
+                {
+                    ToonClasses.Warlock, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Affliction,"Affliction"},
+                        {ClassSpecializations.Demonology,"Demonology"},
+                        {ClassSpecializations.Destruction,"Destruction"}
+                    }
+                },
+                {
+                    ToonClasses.Warrior, new Dictionary<ClassSpecializations, string>
+                    {
+                        {ClassSpecializations.Arms,"Arms"},
+                        {ClassSpecializations.Fury,"Fury"},
+                        {ClassSpecializations.Protection,"Protection"}
+                    }
+                }
+            };
+        }
+
         public enum ConfigFiles
         {
             Application,
