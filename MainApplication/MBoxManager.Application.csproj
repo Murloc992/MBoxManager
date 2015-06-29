@@ -52,6 +52,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MacroUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MacroUserControl.Designer.cs">
+      <DependentUpon>MacroUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TextInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MacroUserControl.resx">
+      <DependentUpon>MacroUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TextInputForm.resx">
       <DependentUpon>TextInputForm.cs</DependentUpon>
     </EmbeddedResource>

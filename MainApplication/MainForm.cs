@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Constants;
 using Extensions;
+using JambaManager;
 using SettingsManager;
 using TeamManager;
 
@@ -41,21 +42,32 @@ namespace MainApplication
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            MacroModifier mm = new MacroModifier { DifferentiateSides = false, LAlt = true, LCtrl = false, LShift = true };
+            var str = mm.BuildString();
+
             //Initialize the application and it's modules
             //create a settings manager
             _settingsManager = new MBSettingsManager();
             //load the application config
-            var firstRun = _settingsManager.LoadConfig();
+            var success = _settingsManager.LoadConfig();
 
-            MBAccountList accountList = _settingsManager.GenerateAccountsList();
-            _settingsManager.WriteConfig(MBConstants.ConfigFiles.Accounts, accountList);
+            if (!success)
+            {
+                Dispose(true);
+                Application.Exit();
+            }
+            else
+            {
+                MBAccountList accountList = _settingsManager.GenerateAccountsList();
+                _settingsManager.WriteConfig(MBConstants.ConfigFiles.Accounts, accountList);
 
-            //create a team manager
+                //create a team manager
 
-            _teamManager = new MBTeamManager(accountList, _settingsManager.LoadConfig(MBConstants.ConfigFiles.Teams) as MBTeamList);
+                _teamManager = new MBTeamManager(accountList, _settingsManager.LoadConfig(MBConstants.ConfigFiles.Teams) as MBTeamList);
 
-            CreateAccountTreeView();
-            LoadTeams();
+                CreateAccountTreeView();
+                LoadTeams();
+            }
         }
 
         private void CreateTeamButton_Click(object sender, EventArgs e)

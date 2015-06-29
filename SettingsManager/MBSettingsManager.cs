@@ -35,31 +35,37 @@ namespace SettingsManager
 
         public bool LoadConfig()
         {
-            FirstRun = false;
-
-            var settingsFileDir = Path.Combine(WorkingDirectory, MBConstants.Settings.Directories.SettingFileDir);
-            var settingsFilePath = Path.Combine(settingsFileDir, MBConstants.Settings.Files.SettingsFileName);
-
-            FirstRun = !File.Exists(settingsFilePath);
-
-            if (FirstRun) //initial scanning and serialization
+            try
             {
-                string wowPath;
-                GetSettingsPath("Select WoW directory", "wow.exe", out wowPath);
-                mainSettings.WowPath = wowPath;
+                var settingsFileDir = Path.Combine(WorkingDirectory, MBConstants.Settings.Directories.SettingFileDir);
+                var settingsFilePath = Path.Combine(settingsFileDir, MBConstants.Settings.Files.SettingsFileName);
 
-                string hknPath;
-                GetSettingsPath("Select HotKeyNet directory", "hotkeynet.exe", out hknPath);
-                mainSettings.HKNPath = hknPath;
+                FirstRun = !File.Exists(settingsFilePath);
 
-                WriteConfig(MBConstants.ConfigFiles.Application, mainSettings);
+                if (FirstRun) //initial scanning and serialization
+                {
+                    string wowPath;
+                    GetSettingsPath("Select WoW directory", "wow.exe", out wowPath);
+                    mainSettings.WowPath = wowPath;
+
+                    string hknPath;
+                    GetSettingsPath("Select HotKeyNet directory", "hotkeynet.exe", out hknPath);
+                    mainSettings.HKNPath = hknPath;
+
+                    WriteConfig(MBConstants.ConfigFiles.Application, mainSettings);
+                }
+                else //deserialize the fuck out of it
+                {
+                    mainSettings = LoadConfig(MBConstants.ConfigFiles.Application) as Settings;
+                }
             }
-            else //deserialize the fuck out of it
+            catch (Exception ex)
             {
-                mainSettings = LoadConfig(MBConstants.ConfigFiles.Application) as Settings;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
 
-            return FirstRun;
+            return true;
         }
 
         private void GetSettingsPath(string description, string pathValidation, out string pathOutput)
@@ -69,7 +75,7 @@ namespace SettingsManager
             while (!valid)
             {
                 var dialog = new FolderBrowserDialog { Description = description };
-                DialogResult result = dialog.ShowDialog();
+                DialogResult result = dialog.ShowDialog(new Form() { TopMost = true, TopLevel = true });
                 if (result == DialogResult.OK)
                 {
                     var path = dialog.SelectedPath;

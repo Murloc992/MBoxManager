@@ -31,6 +31,7 @@
             this.TabControl = new System.Windows.Forms.TabControl();
             this.TeamTab = new System.Windows.Forms.TabPage();
             this.TeamsGroupBox = new System.Windows.Forms.GroupBox();
+            this.RenameTeamButton = new System.Windows.Forms.Button();
             this.CopyTeamButton = new System.Windows.Forms.Button();
             this.TeamSelectComboBox = new System.Windows.Forms.ComboBox();
             this.DeleteTeamButton = new System.Windows.Forms.Button();
@@ -61,7 +62,7 @@
             this.setHKNDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reInstallJAMBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.RenameTeamButton = new System.Windows.Forms.Button();
+            this.teamUserControl1 = new MainApplication.MacroUserControl();
             this.TabControl.SuspendLayout();
             this.TeamTab.SuspendLayout();
             this.TeamsGroupBox.SuspendLayout();
@@ -70,6 +71,7 @@
             this.TeamMemberInfoGroupBox.SuspendLayout();
             this.TeamCompositionGroupBox.SuspendLayout();
             this.DetectedToonsGroupBox.SuspendLayout();
+            this.MacroTab.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,6 +113,15 @@
             this.TeamsGroupBox.TabIndex = 5;
             this.TeamsGroupBox.TabStop = false;
             this.TeamsGroupBox.Text = "Teams";
+            // 
+            // RenameTeamButton
+            // 
+            this.RenameTeamButton.Location = new System.Drawing.Point(523, 17);
+            this.RenameTeamButton.Name = "RenameTeamButton";
+            this.RenameTeamButton.Size = new System.Drawing.Size(75, 23);
+            this.RenameTeamButton.TabIndex = 6;
+            this.RenameTeamButton.Text = "Rename";
+            this.RenameTeamButton.UseVisualStyleBackColor = true;
             // 
             // CopyTeamButton
             // 
@@ -302,6 +313,7 @@
             // 
             // MacroTab
             // 
+            this.MacroTab.Controls.Add(this.teamUserControl1);
             this.MacroTab.Location = new System.Drawing.Point(4, 22);
             this.MacroTab.Name = "MacroTab";
             this.MacroTab.Padding = new System.Windows.Forms.Padding(3);
@@ -390,14 +402,12 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // RenameTeamButton
+            // teamUserControl1
             // 
-            this.RenameTeamButton.Location = new System.Drawing.Point(523, 17);
-            this.RenameTeamButton.Name = "RenameTeamButton";
-            this.RenameTeamButton.Size = new System.Drawing.Size(75, 23);
-            this.RenameTeamButton.TabIndex = 6;
-            this.RenameTeamButton.Text = "Rename";
-            this.RenameTeamButton.UseVisualStyleBackColor = true;
+            this.teamUserControl1.Location = new System.Drawing.Point(0, 0);
+            this.teamUserControl1.Name = "teamUserControl1";
+            this.teamUserControl1.Size = new System.Drawing.Size(976, 664);
+            this.teamUserControl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -420,6 +430,7 @@
             this.TeamCompositionGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.PerformLayout();
+            this.MacroTab.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -463,6 +474,7 @@
         private System.Windows.Forms.TextBox MemberInfoNicknameTextbox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button RenameTeamButton;
+        private MacroUserControl teamUserControl1;
 
     }
 }
