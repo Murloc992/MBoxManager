@@ -32,6 +32,7 @@ namespace HKNManager
             BuildSendingLabels();
             BuildWoWLaunchingCommand();
             BuildBuiltinCommands();
+            BuildHotKeys();
             Save();
         }
 
@@ -190,7 +191,7 @@ namespace HKNManager
             // %5% : Slave Windows
             scriptBuilder.AppendLine("<Template SendLeaderless>");
             scriptBuilder.AppendLine("\t<If ActiveWinIs %4%>");
-            scriptBuilder.AppendLine("\t\t<ApplyTemplate SendMasterAndSlave %1% %2% %3% %5%>");
+            scriptBuilder.AppendLine("\t\t<ApplyTemplate SendMasterAndSlave \"%1%\" \"%2%\" \"%3%\" \"%5%\">");
             scriptBuilder.AppendLine("<EndTemplate>");
             scriptBuilder.AppendLine();
 
@@ -257,6 +258,16 @@ namespace HKNManager
             scriptBuilder.AppendLine("\t<SetActiveWin>");
 
             scriptBuilder.AppendLine();
+        }
+
+        private void BuildHotKeys()
+        {
+            scriptBuilder.AppendLine("<ApplyTemplate FTL \"F\" \"F\">");
+            scriptBuilder.AppendLine("<ApplyTemplate FTL \"Button4\" \"T\">");
+
+            scriptBuilder.AppendLine("<Hotkey Button5>");
+            scriptBuilder.AppendFormat("\t<SendLabel {0}>", string.Join(",", labels));
+            scriptBuilder.AppendLine("\t\t<Key I>");
         }
     }
 }
