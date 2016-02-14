@@ -10,6 +10,7 @@ namespace TeamManager
     {
         [XmlAttribute]
         public string Name { get; set; }
+
         public List<TeamToon> ToonsInTeam { get; set; }
 
         public Team()
@@ -17,11 +18,11 @@ namespace TeamManager
             ToonsInTeam = new List<TeamToon>();
         }
 
-        public void AddToon(Toon toon)
+        public void AddToon(TeamToon toon)
         {
             if (!ContainsToon(toon.Name))
             {
-                ToonsInTeam.Add(new TeamToon(toon));
+                ToonsInTeam.Add(toon);
             }
         }
 

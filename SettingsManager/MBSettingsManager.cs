@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Constants;
+using Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,8 +10,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using Constants;
-using Extensions;
 using TeamManager;
 
 namespace SettingsManager
@@ -101,11 +101,11 @@ namespace SettingsManager
         {
             return new MBAccountList
             {
-                Accounts = ReadAccounts(Path.Combine(mainSettings.WowPath, "WTF", "Account"))
+                Accounts = FindAccounts(Path.Combine(mainSettings.WowPath, "WTF", "Account"))
             };
         }
 
-        private List<Account> ReadAccounts(string WTFAccountsPath)
+        private List<Account> FindAccounts(string WTFAccountsPath)
         {
             var ret = new List<Account>();
 
@@ -117,7 +117,7 @@ namespace SettingsManager
                 {
                     Name = accountDir.Split('\\').Last()
                 };
-                account.Realms = ReadRealms(account, accountDir);
+                account.Realms = FindRealms(account, accountDir);
 
                 ret.Add(account);
             }
@@ -125,22 +125,36 @@ namespace SettingsManager
             return ret;
         }
 
-        private List<Realm> ReadRealms(Account currentAccount, string accountPath)
+        private List<Realm> FindRealms(Account currentAccount, string accountPath)
         {
+            var ret = new List<Realm>();
+
             var realmDirs = Directory.EnumerateDirectories(accountPath).Where(w => !w.Contains("SavedVariables"));
 
-            return realmDirs.Select(realmDir => new Realm
+            foreach (var realmDir in realmDirs)
             {
-                Name = realmDir.Split('\\').Last(),
-                Toons = ReadToons(realmDir)
-            }).ToList();
+                var realm = new Realm
+                {
+                    Name = realmDir.Split('\\').Last()
+                };
+                realm.Toons = FindToons(currentAccount, realm, realmDir);
+
+                ret.Add(realm);
+            }
+
+            return ret;
         }
 
-        private List<Toon> ReadToons(string realmPath)
+        private List<Toon> FindToons(Account currentAccount, Realm currentRealm, string realmPath)
         {
             var toonDirs = Directory.EnumerateDirectories(realmPath);
 
-            return toonDirs.Select(toonDir => new Toon { Name = toonDir.Split('\\').Last() }).ToList();
+            return toonDirs.Select(toonDir => new Toon
+            {
+                Name = toonDir.Split('\\').Last(),
+                AccountName = currentAccount.Name,
+                RealmName = currentRealm.Name
+            }).ToList();
         }
 
         public object LoadConfig(MBConstants.ConfigFiles configFileType)
@@ -149,8 +163,10 @@ namespace SettingsManager
             {
                 case MBConstants.ConfigFiles.Application:
                     return DeserializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.SettingsFileName, typeof(Settings));
+
                 case MBConstants.ConfigFiles.Accounts:
                     return DeserializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.AccountsFileName, typeof(MBAccountList));
+
                 case MBConstants.ConfigFiles.Teams:
                     return DeserializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.TeamsFileName, typeof(MBTeamList));
             }
@@ -167,12 +183,14 @@ namespace SettingsManager
                         SerializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.SettingsFileName, toWrite);
                     }
                     break;
+
                 case MBConstants.ConfigFiles.Accounts:
                     {
                         toWrite.GetType().TypeCheckWithException(typeof(MBAccountList));
                         SerializeConfigFile(MBConstants.Settings.Directories.SettingFileDir, MBConstants.Settings.Files.AccountsFileName, toWrite);
                     }
                     break;
+
                 case MBConstants.ConfigFiles.Teams:
                     {
                         toWrite.GetType().TypeCheckWithException(typeof(MBTeamList));

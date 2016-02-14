@@ -12,8 +12,10 @@ namespace JambaManager
     {
         [XmlAttribute]
         public string DisplayName { get; set; }
+
         [XmlAttribute]
         public string Name { get; set; }
+
         [XmlAttribute]
         public bool? Value { get; set; }
     }
@@ -38,97 +40,34 @@ namespace JambaManager
         {
             var sb = new StringBuilder();
 
-            sb.Append("[");
+            string modifierString = string.Empty;
+
+            List<string> modifiers = new List<string>();
 
             if (DifferentiateSides)
             {
-                bool prevModifierBuilt;
-                bool modifierBuilt;
-
-                var lctrl = BuildModifier(LCtrl, "lctrl");
-                modifierBuilt = !string.IsNullOrWhiteSpace(lctrl);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(lctrl);
-                }
-
-                var lalt = BuildModifier(LAlt, "lalt");
-                modifierBuilt = !string.IsNullOrWhiteSpace(lalt);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(lalt);
-                }
-
-                var lshift = BuildModifier(LShift, "lshift");
-                modifierBuilt = !string.IsNullOrWhiteSpace(lshift);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(lshift);
-                }
-
-                var rctrl = BuildModifier(RCtrl, "rctrl");
-                modifierBuilt = !string.IsNullOrWhiteSpace(rctrl);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(rctrl);
-                }
-
-                var ralt = BuildModifier(RAlt, "ralt");
-                modifierBuilt = !string.IsNullOrWhiteSpace(ralt);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(ralt);
-                }
-
-                var rshift = BuildModifier(RShift, "rshift");
-                modifierBuilt = !string.IsNullOrWhiteSpace(rshift);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                if (modifierBuilt)
-                {
-                    sb.Append(rshift);
-                }
+                modifiers.Add(BuildModifier(LCtrl, "lctrl"));
+                modifiers.Add(BuildModifier(LAlt, "lalt"));
+                modifiers.Add(BuildModifier(LShift, "lshift"));
+                modifiers.Add(BuildModifier(RCtrl, "rctrl"));
+                modifiers.Add(BuildModifier(RAlt, "ralt"));
+                modifiers.Add(BuildModifier(RShift, "rshift"));
             }
             else
             {
-                bool prevModifierBuilt;
-                bool modifierBuilt;
-
-                var ctrl = BuildModifier(LCtrl ?? RCtrl, "ctrl");
-                modifierBuilt = !string.IsNullOrWhiteSpace(ctrl);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(ctrl);
-                }
-
-                var alt = BuildModifier(LAlt ?? RAlt, "alt");
-                modifierBuilt = !string.IsNullOrWhiteSpace(alt);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                prevModifierBuilt = modifierBuilt;
-                if (modifierBuilt)
-                {
-                    sb.Append(alt);
-                }
-
-                var shift = BuildModifier(LShift ?? RShift, "shift");
-                modifierBuilt = !string.IsNullOrWhiteSpace(shift);
-                sb.Append(prevModifierBuilt && modifierBuilt ? "," : string.Empty);
-                if (modifierBuilt)
-                {
-                    sb.Append(shift);
-                }
+                modifiers.Add(BuildModifier(LCtrl ?? RCtrl, "ctrl"));
+                modifiers.Add(BuildModifier(LAlt ?? RAlt, "alt"));
+                modifiers.Add(BuildModifier(LShift ?? RShift, "shift"));
             }
 
-            sb.Append("]");
+            modifierString = string.Join(",", modifiers.Where(w => !string.IsNullOrWhiteSpace(w)));
+
+            if (!string.IsNullOrWhiteSpace(modifierString))
+            {
+                sb.Append("[");
+                sb.Append(modifierString);
+                sb.Append("]");
+            }
 
             return sb.ToString();
         }
@@ -164,7 +103,6 @@ namespace JambaManager
 
     public class ItemEquip
     {
-
     }
 
     public class Macro
@@ -187,7 +125,7 @@ namespace JambaManager
 
             foreach (var itemUse in ItemUses)
             {
-                macroBuilder.Append(itemUse.BuildString());
+                //macroBuilder.Append(itemUse.BuildString());
             }
 
             return string.Empty;
@@ -196,6 +134,5 @@ namespace JambaManager
 
     public class JambaManager
     {
-
     }
 }

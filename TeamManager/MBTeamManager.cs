@@ -20,8 +20,10 @@ namespace TeamManager
     public class MBTeamList
     {
         public List<Team> Teams { get; set; }
+
         [XmlAttribute]
         public string ActiveTeamName { get; set; }
+
         [XmlIgnore]
         public Team ActiveTeam
         {
@@ -47,6 +49,18 @@ namespace TeamManager
         {
             AccountList = accountList ?? new MBAccountList();
             TeamList = teamList ?? new MBTeamList();
+            AssignAccountsToToons(AccountList, TeamList);
+        }
+
+        private void AssignAccountsToToons(MBAccountList accountList, MBTeamList teamList)
+        {
+            foreach (var team in teamList.Teams)
+            {
+                foreach (var toon in team.ToonsInTeam)
+                {
+                    toon.ActualAccount = accountList.Accounts.FirstOrDefault(w => w.Name == toon.AccountName);
+                }
+            }
         }
 
         public void CreateTeam(string name)

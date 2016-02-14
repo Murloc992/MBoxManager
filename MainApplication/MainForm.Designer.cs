@@ -38,9 +38,13 @@
             this.DeleteTeamButton = new System.Windows.Forms.Button();
             this.CreateTeamButton = new System.Windows.Forms.Button();
             this.ToonManagerBox = new System.Windows.Forms.GroupBox();
+            this.SetAccPasswordButton = new System.Windows.Forms.Button();
             this.TeamMemberOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.FTLOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.FTLOptionsUseInFTLCheckbox = new System.Windows.Forms.CheckBox();
             this.TeamMemberInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.MemberInfoIsMasterOfTeam = new System.Windows.Forms.CheckBox();
             this.MemberInfoNicknameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.MemberInfoClassComboBox = new System.Windows.Forms.ComboBox();
@@ -63,9 +67,14 @@
             this.setHKNDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reInstallJAMBAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.FTLOptionsUseInFTLCheckbox = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.MemberInfoIsMasterOfTeam = new System.Windows.Forms.CheckBox();
+            this.FTLKeyLShift = new System.Windows.Forms.CheckBox();
+            this.FTLKeyLCtrl = new System.Windows.Forms.CheckBox();
+            this.FTLKeyLAlt = new System.Windows.Forms.CheckBox();
+            this.FTLKeyRShift = new System.Windows.Forms.CheckBox();
+            this.FTLKeyRCtrl = new System.Windows.Forms.CheckBox();
+            this.FTLKeyRAlt = new System.Windows.Forms.CheckBox();
+            this.MacroUserControl = new MainApplication.MacroUserControl();
+            this.TempBuildHKN = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.TeamTab.SuspendLayout();
             this.TeamsGroupBox.SuspendLayout();
@@ -75,6 +84,7 @@
             this.TeamMemberInfoGroupBox.SuspendLayout();
             this.TeamCompositionGroupBox.SuspendLayout();
             this.DetectedToonsGroupBox.SuspendLayout();
+            this.MacroTab.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,6 +176,7 @@
             // 
             // ToonManagerBox
             // 
+            this.ToonManagerBox.Controls.Add(this.SetAccPasswordButton);
             this.ToonManagerBox.Controls.Add(this.TeamMemberOptionsGroupBox);
             this.ToonManagerBox.Controls.Add(this.RemoveFromTeamButton);
             this.ToonManagerBox.Controls.Add(this.AddToTeamButton);
@@ -179,8 +190,20 @@
             this.ToonManagerBox.TabStop = false;
             this.ToonManagerBox.Text = "Toon Management";
             // 
+            // SetAccPasswordButton
+            // 
+            this.SetAccPasswordButton.ForeColor = System.Drawing.Color.Red;
+            this.SetAccPasswordButton.Location = new System.Drawing.Point(6, 332);
+            this.SetAccPasswordButton.Name = "SetAccPasswordButton";
+            this.SetAccPasswordButton.Size = new System.Drawing.Size(212, 23);
+            this.SetAccPasswordButton.TabIndex = 4;
+            this.SetAccPasswordButton.Text = "Set Account Password";
+            this.SetAccPasswordButton.UseVisualStyleBackColor = true;
+            this.SetAccPasswordButton.Click += new System.EventHandler(this.SetAccPasswordButton_Click);
+            // 
             // TeamMemberOptionsGroupBox
             // 
+            this.TeamMemberOptionsGroupBox.Controls.Add(this.TempBuildHKN);
             this.TeamMemberOptionsGroupBox.Controls.Add(this.FTLOptionsGroupBox);
             this.TeamMemberOptionsGroupBox.Controls.Add(this.TeamMemberInfoGroupBox);
             this.TeamMemberOptionsGroupBox.Enabled = false;
@@ -193,6 +216,12 @@
             // 
             // FTLOptionsGroupBox
             // 
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyRAlt);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyRCtrl);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyRShift);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyLAlt);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyLCtrl);
+            this.FTLOptionsGroupBox.Controls.Add(this.FTLKeyLShift);
             this.FTLOptionsGroupBox.Controls.Add(this.label2);
             this.FTLOptionsGroupBox.Controls.Add(this.FTLOptionsUseInFTLCheckbox);
             this.FTLOptionsGroupBox.Location = new System.Drawing.Point(7, 98);
@@ -201,6 +230,27 @@
             this.FTLOptionsGroupBox.TabIndex = 1;
             this.FTLOptionsGroupBox.TabStop = false;
             this.FTLOptionsGroupBox.Text = "FTL Options";
+            this.FTLOptionsGroupBox.Enter += new System.EventHandler(this.FTLOptionsGroupBox_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "FTL Keys to use:";
+            // 
+            // FTLOptionsUseInFTLCheckbox
+            // 
+            this.FTLOptionsUseInFTLCheckbox.AutoSize = true;
+            this.FTLOptionsUseInFTLCheckbox.Location = new System.Drawing.Point(9, 20);
+            this.FTLOptionsUseInFTLCheckbox.Name = "FTLOptionsUseInFTLCheckbox";
+            this.FTLOptionsUseInFTLCheckbox.Size = new System.Drawing.Size(78, 17);
+            this.FTLOptionsUseInFTLCheckbox.TabIndex = 1;
+            this.FTLOptionsUseInFTLCheckbox.Text = "Use in FTL";
+            this.FTLOptionsUseInFTLCheckbox.UseVisualStyleBackColor = true;
+            this.FTLOptionsUseInFTLCheckbox.CheckedChanged += new System.EventHandler(this.FTLOptionsUseInFTLCheckbox_CheckedChanged);
             // 
             // TeamMemberInfoGroupBox
             // 
@@ -215,6 +265,16 @@
             this.TeamMemberInfoGroupBox.TabIndex = 0;
             this.TeamMemberInfoGroupBox.TabStop = false;
             this.TeamMemberInfoGroupBox.Text = "Member info";
+            // 
+            // MemberInfoIsMasterOfTeam
+            // 
+            this.MemberInfoIsMasterOfTeam.AutoSize = true;
+            this.MemberInfoIsMasterOfTeam.Location = new System.Drawing.Point(10, 49);
+            this.MemberInfoIsMasterOfTeam.Name = "MemberInfoIsMasterOfTeam";
+            this.MemberInfoIsMasterOfTeam.Size = new System.Drawing.Size(125, 17);
+            this.MemberInfoIsMasterOfTeam.TabIndex = 3;
+            this.MemberInfoIsMasterOfTeam.Text = "Is Master of the team";
+            this.MemberInfoIsMasterOfTeam.UseVisualStyleBackColor = true;
             // 
             // MemberInfoNicknameTextbox
             // 
@@ -324,6 +384,7 @@
             // 
             // MacroTab
             // 
+            this.MacroTab.Controls.Add(this.MacroUserControl);
             this.MacroTab.Location = new System.Drawing.Point(4, 22);
             this.MacroTab.Name = "MacroTab";
             this.MacroTab.Padding = new System.Windows.Forms.Padding(3);
@@ -412,34 +473,82 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // FTLOptionsUseInFTLCheckbox
+            // FTLKeyLShift
             // 
-            this.FTLOptionsUseInFTLCheckbox.AutoSize = true;
-            this.FTLOptionsUseInFTLCheckbox.Location = new System.Drawing.Point(9, 20);
-            this.FTLOptionsUseInFTLCheckbox.Name = "FTLOptionsUseInFTLCheckbox";
-            this.FTLOptionsUseInFTLCheckbox.Size = new System.Drawing.Size(78, 17);
-            this.FTLOptionsUseInFTLCheckbox.TabIndex = 1;
-            this.FTLOptionsUseInFTLCheckbox.Text = "Use in FTL";
-            this.FTLOptionsUseInFTLCheckbox.UseVisualStyleBackColor = true;
+            this.FTLKeyLShift.AutoSize = true;
+            this.FTLKeyLShift.Location = new System.Drawing.Point(9, 57);
+            this.FTLKeyLShift.Name = "FTLKeyLShift";
+            this.FTLKeyLShift.Size = new System.Drawing.Size(53, 17);
+            this.FTLKeyLShift.TabIndex = 3;
+            this.FTLKeyLShift.Text = "LShift";
+            this.FTLKeyLShift.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // FTLKeyLCtrl
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "FTL Keys to use:";
+            this.FTLKeyLCtrl.AutoSize = true;
+            this.FTLKeyLCtrl.Location = new System.Drawing.Point(9, 80);
+            this.FTLKeyLCtrl.Name = "FTLKeyLCtrl";
+            this.FTLKeyLCtrl.Size = new System.Drawing.Size(47, 17);
+            this.FTLKeyLCtrl.TabIndex = 4;
+            this.FTLKeyLCtrl.Text = "LCtrl";
+            this.FTLKeyLCtrl.UseVisualStyleBackColor = true;
             // 
-            // MemberInfoIsMasterOfTeam
+            // FTLKeyLAlt
             // 
-            this.MemberInfoIsMasterOfTeam.AutoSize = true;
-            this.MemberInfoIsMasterOfTeam.Location = new System.Drawing.Point(10, 49);
-            this.MemberInfoIsMasterOfTeam.Name = "MemberInfoIsMasterOfTeam";
-            this.MemberInfoIsMasterOfTeam.Size = new System.Drawing.Size(125, 17);
-            this.MemberInfoIsMasterOfTeam.TabIndex = 3;
-            this.MemberInfoIsMasterOfTeam.Text = "Is Master of the team";
-            this.MemberInfoIsMasterOfTeam.UseVisualStyleBackColor = true;
+            this.FTLKeyLAlt.AutoSize = true;
+            this.FTLKeyLAlt.Location = new System.Drawing.Point(9, 103);
+            this.FTLKeyLAlt.Name = "FTLKeyLAlt";
+            this.FTLKeyLAlt.Size = new System.Drawing.Size(44, 17);
+            this.FTLKeyLAlt.TabIndex = 5;
+            this.FTLKeyLAlt.Text = "LAlt";
+            this.FTLKeyLAlt.UseVisualStyleBackColor = true;
+            // 
+            // FTLKeyRShift
+            // 
+            this.FTLKeyRShift.AutoSize = true;
+            this.FTLKeyRShift.Location = new System.Drawing.Point(9, 126);
+            this.FTLKeyRShift.Name = "FTLKeyRShift";
+            this.FTLKeyRShift.Size = new System.Drawing.Size(55, 17);
+            this.FTLKeyRShift.TabIndex = 6;
+            this.FTLKeyRShift.Text = "RShift";
+            this.FTLKeyRShift.UseVisualStyleBackColor = true;
+            // 
+            // FTLKeyRCtrl
+            // 
+            this.FTLKeyRCtrl.AutoSize = true;
+            this.FTLKeyRCtrl.Location = new System.Drawing.Point(9, 149);
+            this.FTLKeyRCtrl.Name = "FTLKeyRCtrl";
+            this.FTLKeyRCtrl.Size = new System.Drawing.Size(49, 17);
+            this.FTLKeyRCtrl.TabIndex = 7;
+            this.FTLKeyRCtrl.Text = "RCtrl";
+            this.FTLKeyRCtrl.UseVisualStyleBackColor = true;
+            // 
+            // FTLKeyRAlt
+            // 
+            this.FTLKeyRAlt.AutoSize = true;
+            this.FTLKeyRAlt.Location = new System.Drawing.Point(9, 172);
+            this.FTLKeyRAlt.Name = "FTLKeyRAlt";
+            this.FTLKeyRAlt.Size = new System.Drawing.Size(46, 17);
+            this.FTLKeyRAlt.TabIndex = 8;
+            this.FTLKeyRAlt.Text = "RAlt";
+            this.FTLKeyRAlt.UseVisualStyleBackColor = true;
+            // 
+            // MacroUserControl
+            // 
+            this.MacroUserControl.Location = new System.Drawing.Point(0, 0);
+            this.MacroUserControl.Name = "MacroUserControl";
+            this.MacroUserControl.Size = new System.Drawing.Size(976, 664);
+            this.MacroUserControl.TabIndex = 0;
+            // 
+            // TempBuildHKN
+            // 
+            this.TempBuildHKN.Location = new System.Drawing.Point(160, 99);
+            this.TempBuildHKN.Name = "TempBuildHKN";
+            this.TempBuildHKN.Size = new System.Drawing.Size(75, 23);
+            this.TempBuildHKN.TabIndex = 2;
+            this.TempBuildHKN.Text = "Build HKN";
+            this.TempBuildHKN.UseVisualStyleBackColor = true;
+            this.TempBuildHKN.Click += new System.EventHandler(this.TempBuildHKN_Click);
             // 
             // MainForm
             // 
@@ -466,6 +575,7 @@
             this.TeamCompositionGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.ResumeLayout(false);
             this.DetectedToonsGroupBox.PerformLayout();
+            this.MacroTab.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -512,7 +622,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox FTLOptionsUseInFTLCheckbox;
         private System.Windows.Forms.CheckBox MemberInfoIsMasterOfTeam;
-
+        private MacroUserControl MacroUserControl;
+        private System.Windows.Forms.Button SetAccPasswordButton;
+        private System.Windows.Forms.CheckBox FTLKeyRAlt;
+        private System.Windows.Forms.CheckBox FTLKeyRCtrl;
+        private System.Windows.Forms.CheckBox FTLKeyRShift;
+        private System.Windows.Forms.CheckBox FTLKeyLAlt;
+        private System.Windows.Forms.CheckBox FTLKeyLCtrl;
+        private System.Windows.Forms.CheckBox FTLKeyLShift;
+        private System.Windows.Forms.Button TempBuildHKN;
     }
 }
 

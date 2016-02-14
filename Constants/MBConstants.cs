@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Constants
 {
     public static class MBConstants
     {
-        public enum ToonClasses
+        public enum ToonClasses : int
         {
             DeathKnight,
             Druid,
@@ -22,7 +23,7 @@ namespace Constants
             Warrior
         }
 
-        public enum ClassSpecializations
+        public enum ClassSpecializations : int
         {
             Affliction,
             Arcane,
@@ -170,12 +171,10 @@ namespace Constants
 
         public static class HotKeyNet
         {
-
         }
 
         public static class Jamba
         {
-
         }
 
         public static class Settings

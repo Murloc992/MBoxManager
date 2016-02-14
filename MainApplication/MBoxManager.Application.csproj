@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>mbm.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +67,15 @@
     <Compile Include="TextInputForm.Designer.cs">
       <DependentUpon>TextInputForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HKNUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HKNUserControl.Designer.cs">
+      <DependentUpon>HKNUserControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="HKNUserControl.resx">
+      <DependentUpon>HKNUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +132,9 @@
       <Project>{b7f37cfb-0a16-4e8c-a3ef-12e97d440003}</Project>
       <Name>MBoxManager.TeamManager</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mbm.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

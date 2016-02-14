@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Constants;
+using Extensions;
+using HKNManager;
+using JambaManager;
+using SettingsManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Constants;
-using Extensions;
-using JambaManager;
-using SettingsManager;
 using TeamManager;
 
 namespace MainApplication
@@ -13,16 +14,20 @@ namespace MainApplication
     public partial class MainForm : Form
     {
         private MBSettingsManager _settingsManager;
+        private MBHKNManager _hknManager;
         private MBTeamManager _teamManager;
+
         public MainForm()
         {
             InitializeComponent();
         }
+
         private DialogResult PreClosingConfirmation()
         {
             DialogResult res = MessageBox.Show("Do you want to quit?", "Quit", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             return res;
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -59,15 +64,24 @@ namespace MainApplication
             }
             else
             {
-                MBAccountList accountList = _settingsManager.GenerateAccountsList();
-                _settingsManager.WriteConfig(MBConstants.ConfigFiles.Accounts, accountList);
+                MBAccountList accountList = _settingsManager.LoadConfig(MBConstants.ConfigFiles.Accounts) as MBAccountList;
+                if (accountList == null || accountList.Accounts.Count == 0)
+                {
+                    accountList = _settingsManager.GenerateAccountsList();
+                }
+                else
+                {
+                    MBAccountList refresh = _settingsManager.GenerateAccountsList();
+                    var tests = accountList.Accounts.Union(refresh.Accounts.Where(w => accountList.Accounts.Contains(w))).ToList();
+                    accountList.Accounts = tests;
+                }
 
                 //create a team manager
 
                 _teamManager = new MBTeamManager(accountList, _settingsManager.LoadConfig(MBConstants.ConfigFiles.Teams) as MBTeamList);
 
                 CreateAccountTreeView();
-            RefreshTeams();
+                RefreshTeams();
             }
         }
 
@@ -182,9 +196,15 @@ namespace MainApplication
             var realmName = splitted[1];
             var toonName = splitted[2];
 
-            var toon = _teamManager.AccountList.Accounts.First(f => f.Name.Equals(accountName)).Realms.First(f => f.Name.Equals(realmName)).Toons.First(f => f.Name.Equals(toonName));
+            var toonAccount = _teamManager.AccountList.Accounts.First(f => f.Name.Equals(accountName));
+            var toonRealm = toonAccount.Realms.First(f => f.Name.Equals(realmName));
+            var toon = toonRealm.Toons.First(f => f.Name.Equals(toonName));
 
-            _teamManager.TeamList.ActiveTeam.AddToon(toon);
+            TeamToon teamToon = new TeamToon(toon);
+
+            teamToon.ActualAccount = toonAccount;
+
+            _teamManager.TeamList.ActiveTeam.AddToon(teamToon);
             RefreshCurrentTeam();
         }
 
@@ -203,7 +223,6 @@ namespace MainApplication
 
         private void DeleteTeamButton_Click(object sender, EventArgs e)
         {
-
         }
 
         private void CurrentTeamToonList_SelectedIndexChanged(object sender, EventArgs e)
@@ -222,12 +241,34 @@ namespace MainApplication
 
             var toon = _teamManager.TeamList.ActiveTeam.GetToon(toonName);
 
-            MemberInfoIsMasterOfTeam.DataBindings.Clear();
-            MemberInfoIsMasterOfTeam.DataBindings.Add(new Binding("Checked", toon, "FTLToon"));
+            FTLOptionsUseInFTLCheckbox.DataBindings.Clear();
+            FTLOptionsUseInFTLCheckbox.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseInFTL"));
+
+            FTLKeyLAlt.DataBindings.Clear();
+            FTLKeyLAlt.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseLAlt"));
+
+            FTLKeyLShift.DataBindings.Clear();
+            FTLKeyLShift.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseLShift"));
+
+            FTLKeyLCtrl.DataBindings.Clear();
+            FTLKeyLCtrl.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseLCtrl"));
+
+            FTLKeyRAlt.DataBindings.Clear();
+            FTLKeyRAlt.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseRAlt"));
+
+            FTLKeyRShift.DataBindings.Clear();
+            FTLKeyRShift.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseRShift"));
+
+            FTLKeyRCtrl.DataBindings.Clear();
+            FTLKeyRCtrl.DataBindings.Add(new Binding("Checked", toon.FTLOptions, "UseRCtrl"));
 
             MemberInfoClassComboBox.DisplayMember = "Value";
             MemberInfoClassComboBox.ValueMember = "Key";
             MemberInfoClassComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Classes, null);
+            MemberInfoClassComboBox.SelectedIndex = (int)toon.ToonClass;
+
+            MemberInfoSpecializationComboBox.DisplayMember = "Value";
+            MemberInfoSpecializationComboBox.ValueMember = "Key";
         }
 
         private void MemberInfoClassComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -236,20 +277,75 @@ namespace MainApplication
             {
                 var currentClass = (MBConstants.ToonClasses)MemberInfoClassComboBox.SelectedValue;
 
-                MemberInfoSpecializationComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Specializations[currentClass], null);
                 MemberInfoSpecializationComboBox.DisplayMember = "Value";
                 MemberInfoSpecializationComboBox.ValueMember = "Key";
+                MemberInfoSpecializationComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Specializations[currentClass], null);
+
+                var toonName = CurrentTeamToonList.SelectedItem.ToString();
+
+                if (_teamManager.TeamList.ActiveTeam.ContainsToon(toonName))
+                {
+                    var toon = _teamManager.TeamList.ActiveTeam.GetToon(toonName);
+                    toon.ToonClass = currentClass;
+                }
             }
         }
 
         private void MemberInfoSpecializationComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (MemberInfoSpecializationComboBox.SelectedIndex != -1 && MemberInfoClassComboBox.SelectedIndex != -1)
+            {
+                var toonName = CurrentTeamToonList.SelectedItem.ToString();
 
+                var currentSpec = (MBConstants.ClassSpecializations)MemberInfoSpecializationComboBox.SelectedValue;
+
+                if (_teamManager.TeamList.ActiveTeam.ContainsToon(toonName))
+                {
+                    var toon = _teamManager.TeamList.ActiveTeam.GetToon(toonName);
+                    toon.ToonSpec = currentSpec;
+                }
+            }
         }
 
         private void RemoveFromTeamButton_Click(object sender, EventArgs e)
         {
+        }
 
+        private void FTLOptionsGroupBox_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void FTLOptionsUseInFTLCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void SetAccPasswordButton_Click(object sender, EventArgs e)
+        {
+            var activeAccountName = AccountTree.SelectedNode.FullPath.Split('\\').First();
+
+            var activeAccount = _teamManager.AccountList.Accounts.First(w => w.Name == activeAccountName);
+
+            TextInputForm testDialog = new TextInputForm(activeAccount.Pass);
+
+            if (testDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                var txt = testDialog.Text;
+                var accountPass = txt.OnlyLettersAndDigits();
+
+                if (string.IsNullOrEmpty(accountPass)) return;
+
+                activeAccount.Pass = accountPass;
+            }
+        }
+
+        private void FTLKeyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void TempBuildHKN_Click(object sender, EventArgs e)
+        {
+            _hknManager = new MBHKNManager(_teamManager.TeamList.ActiveTeam, _settingsManager.mainSettings.HKNPath, _settingsManager.mainSettings.WowPath);
+            _hknManager.RestartHKN();
         }
     }
 }

@@ -12,10 +12,11 @@ namespace MainApplication
 {
     public partial class TextInputForm : Form
     {
-        public TextInputForm()
+        public TextInputForm(string initialText = "")
         {
             InitializeComponent();
             this.AcceptButton = button1;
+            textBox1.Text = initialText;
         }
 
         private void button1_Click(object sender, EventArgs e)
