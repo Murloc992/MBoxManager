@@ -87,17 +87,6 @@ namespace HKNManager
             FTLCommands();
         }
 
-        private void BuildScreenSetup()
-        {
-        }
-
-        private void BuildFTL()
-        {
-            for (var i = 0; i < _teamToBuild.ToonsInTeam.Count; i++)
-            {
-            }
-        }
-
         public void Save()
         {
             var script = scriptBuilder.ToString();
@@ -204,18 +193,26 @@ namespace HKNManager
             // %2% : slave-key
             scriptBuilder.AppendLine("<Template FTL>");
             scriptBuilder.AppendLine("\t<Hotkey %1%>");
+            BuildFTL();
+            scriptBuilder.AppendLine("<EndTemplate>");
+            scriptBuilder.AppendLine();
+
+            //-----------------------------------------------------------
+        }
+
+        private void BuildFTL()
+        {
             for (var i = 0; i < _teamToBuild.ToonsInTeam.Count; i++)
             {
                 var slaveLabels = labels.Where(w => w != string.Format("w{0}", i + 1));
                 string slaveLabelsCombined = string.Join(",", slaveLabels);
                 var toon = _teamToBuild.ToonsInTeam[i];
-                scriptBuilder.AppendFormat("\t\t<ApplyTemplate SendLeaderless %1% %2% \"{0}\" \"WoW{1}\" \"{2}\">", toon.FTLOptions.BuildFTLKeys(), i + 1, slaveLabelsCombined);
-                scriptBuilder.AppendLine();
+                if (toon.FTLOptions.UseInFTL)
+                {
+                    scriptBuilder.AppendFormat("\t\t<ApplyTemplate SendLeaderless %1% %2% \"{0}\" \"WoW{1}\" \"{2}\">", toon.FTLOptions.BuildFTLKeys(), i + 1, slaveLabelsCombined);
+                    scriptBuilder.AppendLine();
+                }
             }
-            scriptBuilder.AppendLine("<EndTemplate>");
-            scriptBuilder.AppendLine();
-
-            //-----------------------------------------------------------
         }
 
         private void BuildResizing()
@@ -231,8 +228,11 @@ namespace HKNManager
 
             var cols = 0;
 
-            var divX = (int)Math.Floor(1920 / columns);
-            var divY = (int)Math.Floor(1040 / rows);
+            const int screenSizeX = 1920;
+            const int screenSizeY = 1040;
+
+            var divX = (int)Math.Floor(screenSizeX / columns);
+            var divY = (int)Math.Floor(screenSizeY / rows);
 
             var colCounter = 0;
 
@@ -246,10 +246,10 @@ namespace HKNManager
 
                 scriptBuilder.AppendFormat("\t\t<TargetWin %{0}%>\n", i + 1);
                 if (i == 0)
-                    scriptBuilder.AppendFormat("\t\t\t<SetWinRect {0} {1} {2} {3}>\n", 0, 0, 1920, 1040);
+                    scriptBuilder.AppendFormat("\t\t\t<SetWinRect {0} {1} {2} {3}>\n", 0, 0, screenSizeX, screenSizeY);
                 else
                 {
-                    scriptBuilder.AppendFormat("\t\t\t<SetWinRect {0} {1} {2} {3}>\n", 1920 + cols * divX, colCounter, divX, divY);
+                    scriptBuilder.AppendFormat("\t\t\t<SetWinRect {0} {1} {2} {3}>\n", screenSizeX + cols * divX, colCounter, divX, divY);
                     colCounter += divY;
                 }
             }
@@ -266,7 +266,7 @@ namespace HKNManager
             scriptBuilder.AppendLine("<ApplyTemplate FTL \"Button4\" \"T\">");
 
             scriptBuilder.AppendLine("<Hotkey Button5>");
-            scriptBuilder.AppendFormat("\t<SendLabel {0}>", string.Join(",", labels));
+            scriptBuilder.AppendFormat("\t<SendLabel {0}>\n", string.Join(",", labels));
             scriptBuilder.AppendLine("\t\t<Key I>");
         }
     }

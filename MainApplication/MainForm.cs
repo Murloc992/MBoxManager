@@ -275,17 +275,18 @@ namespace MainApplication
         {
             if (MemberInfoClassComboBox.SelectedIndex != -1)
             {
-                var currentClass = (MBConstants.ToonClasses)MemberInfoClassComboBox.SelectedValue;
-
-                MemberInfoSpecializationComboBox.DisplayMember = "Value";
-                MemberInfoSpecializationComboBox.ValueMember = "Key";
-                MemberInfoSpecializationComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Specializations[currentClass], null);
-
                 var toonName = CurrentTeamToonList.SelectedItem.ToString();
 
                 if (_teamManager.TeamList.ActiveTeam.ContainsToon(toonName))
                 {
                     var toon = _teamManager.TeamList.ActiveTeam.GetToon(toonName);
+
+                    var currentClass = (MBConstants.ToonClasses)MemberInfoClassComboBox.SelectedValue;
+
+                    MemberInfoSpecializationComboBox.DisplayMember = "Value";
+                    MemberInfoSpecializationComboBox.ValueMember = "Key";
+                    MemberInfoSpecializationComboBox.DataSource = new BindingSource(MBConstants.ToonDescriptor.Specializations[currentClass], null);
+
                     toon.ToonClass = currentClass;
                 }
             }
