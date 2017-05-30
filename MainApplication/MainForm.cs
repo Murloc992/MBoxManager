@@ -1,7 +1,9 @@
-﻿using Constants;
+﻿using AddonManager;
+using Constants;
 using Extensions;
 using HKNManager;
 using JambaManager;
+using MacroManager;
 using SettingsManager;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace MainApplication
         private MBSettingsManager _settingsManager;
         private MBHKNManager _hknManager;
         private MBTeamManager _teamManager;
+        private MBAddonManager _addonManager;
+        private MBMacroManager _macroManager;
 
         public MainForm()
         {
@@ -48,9 +52,6 @@ namespace MainApplication
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            MacroModifier mm = new MacroModifier { DifferentiateSides = false, LAlt = true, LCtrl = false, LShift = true };
-            var str = mm.BuildString();
-
             //Initialize the application and it's modules
             //create a settings manager
             _settingsManager = new MBSettingsManager();
@@ -64,6 +65,9 @@ namespace MainApplication
             }
             else
             {
+                _macroManager = new MBMacroManager();
+                _addonManager = new MBAddonManager(_settingsManager.mainSettings.WowPath, _macroManager);
+
                 MBAccountList accountList = _settingsManager.LoadConfig(MBConstants.ConfigFiles.Accounts) as MBAccountList;
                 if (accountList == null || accountList.Accounts.Count == 0)
                 {
@@ -347,6 +351,27 @@ namespace MainApplication
         {
             _hknManager = new MBHKNManager(_teamManager.TeamList.ActiveTeam, _settingsManager.mainSettings.HKNPath, _settingsManager.mainSettings.WowPath);
             _hknManager.RestartHKN();
+        }
+
+        private void BuildMacros_Click(object sender, EventArgs e)
+        {
+            var macroManager = new MBMacroManager();
+            macroManager.SaveMacros(_teamManager.TeamList.ActiveTeam);
+        }
+
+        private void rESETToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void MemberInfoIsMasterOfTeam_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BuildAddon_Click(object sender, EventArgs e)
+        {
+            _addonManager.CreateTargetMacroButton(_teamManager.TeamList.ActiveTeam);
         }
     }
 }

@@ -196,5 +196,110 @@ namespace Constants
                 public const string ClassesAndSpellsDatabaseFileName = "ClassesAndSpells.dbs";
             }
         }
+
+        public static class ActionBarSlots
+        {
+            public static string ActionBarPrefix = "ActionButton";
+            public static string MultiBarBottomLeftPrefix = "MultiBarBottomLeftButton";
+            public static string MultiBarBottomRightPrefix = "MultiBarBottomRightButton";
+            public static string MultiBarLeftButton = "MultiBarLeftButton";
+            public static string MultiBarRightButton = "MultiBarRightButton";
+
+            public enum ActionBar1
+            {
+                Slot1=1,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+
+            public enum ActionBar2
+            {
+                Slot1 = 13,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+
+            public enum RightBar
+            {
+                Slot1 = 25,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+
+            public enum LeftBar
+            {
+                Slot1 = 37,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+
+            public enum BottomRightBar
+            {
+                Slot1 = 49,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+
+            public enum BottomLeftBar
+            {
+                Slot1 = 61,
+                Slot2,
+                Slot3,
+                Slot4,
+                Slot5,
+                Slot6,
+                Slot7,
+                Slot8,
+                Slot9,
+                Slot10,
+                Slot11,
+                Slot12
+            }
+        }
     }
 }

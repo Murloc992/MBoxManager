@@ -24,6 +24,9 @@ namespace TeamManager
         [XmlAttribute]
         public string RealmName { get; set; }
 
+        [XmlAttribute]
+        public string ToonPath { get; set; }
+
         public override string ToString()
         {
             return Name;
@@ -92,6 +95,7 @@ namespace TeamManager
             SpecializationName = other.SpecializationName;
             AccountName = other.AccountName;
             RealmName = other.RealmName;
+            ToonPath = other.ToonPath;
 
             FTLOptions = new FTLOptions();
         }

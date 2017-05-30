@@ -45,11 +45,11 @@ namespace SettingsManager
                 if (FirstRun) //initial scanning and serialization
                 {
                     string wowPath;
-                    GetSettingsPath("Select WoW directory", "wow.exe", out wowPath);
+                    GetSettingsPath("Select WoW directory (wow.exe)", "wow.exe", out wowPath);
                     mainSettings.WowPath = wowPath;
 
                     string hknPath;
-                    GetSettingsPath("Select HotKeyNet directory", "hotkeynet.exe", out hknPath);
+                    GetSettingsPath("Select HotKeyNet directory (hotkeynet.exe)", "hotkeynet.exe", out hknPath);
                     mainSettings.HKNPath = hknPath;
 
                     WriteConfig(MBConstants.ConfigFiles.Application, mainSettings);
@@ -118,6 +118,7 @@ namespace SettingsManager
                     Name = accountDir.Split('\\').Last()
                 };
                 account.Realms = FindRealms(account, accountDir);
+                account.Path = accountDir;
 
                 ret.Add(account);
             }
@@ -138,6 +139,7 @@ namespace SettingsManager
                     Name = realmDir.Split('\\').Last()
                 };
                 realm.Toons = FindToons(currentAccount, realm, realmDir);
+                realm.Path = realmDir;
 
                 ret.Add(realm);
             }
@@ -153,7 +155,8 @@ namespace SettingsManager
             {
                 Name = toonDir.Split('\\').Last(),
                 AccountName = currentAccount.Name,
-                RealmName = currentRealm.Name
+                RealmName = currentRealm.Name,
+                ToonPath = toonDir
             }).ToList();
         }
 
@@ -250,6 +253,11 @@ namespace SettingsManager
 
             xmlSerializer.Serialize(xmlWriter, toWrite);
             xmlWriter.Close();
+        }
+
+        private void CreateKeybinds()
+        {
+
         }
     }
 }

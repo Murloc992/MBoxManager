@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBoxManager.TeamManager", "TeamManager\MBoxManager.TeamManager.csproj", "{B7F37CFB-0A16-4E8C-A3EF-12E97D440003}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -42,6 +42,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBoxManager.Constants", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBoxManager.Extensions", "Extensions\MBoxManager.Extensions.csproj", "{8521289D-D2C9-4DFA-B317-ABCB83A3C876}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBoxManager.AddonManager", "AddonManager\MBoxManager.AddonManager.csproj", "{0627A603-A56B-40FC-AAE8-2452DF30732C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MboxManager.MacroManager", "MacroManager\MboxManager.MacroManager.csproj", "{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {8521289D-D2C9-4DFA-B317-ABCB83A3C876}
+		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03} = {F28CC0DE-A012-4A6A-83EA-CD485F5AAB03}
+		{B7F37CFB-0A16-4E8C-A3EF-12E97D440003} = {B7F37CFB-0A16-4E8C-A3EF-12E97D440003}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +85,14 @@ Global
 		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8521289D-D2C9-4DFA-B317-ABCB83A3C876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0627A603-A56B-40FC-AAE8-2452DF30732C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0627A603-A56B-40FC-AAE8-2452DF30732C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0627A603-A56B-40FC-AAE8-2452DF30732C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0627A603-A56B-40FC-AAE8-2452DF30732C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +104,7 @@ Global
 		{52F09F3B-F1AE-42E5-AADE-8CC0AE339952} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 		{F28CC0DE-A012-4A6A-83EA-CD485F5AAB03} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 		{8521289D-D2C9-4DFA-B317-ABCB83A3C876} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
+		{0627A603-A56B-40FC-AAE8-2452DF30732C} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
+		{3D591FA3-5F07-4D33-8C94-48F3D7D4B3BB} = {72DF1A8B-8DE5-4F3B-AB80-4048D9F4D316}
 	EndGlobalSection
 EndGlobal

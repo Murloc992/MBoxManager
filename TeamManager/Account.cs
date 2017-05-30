@@ -14,6 +14,8 @@ namespace TeamManager
         public string Name { get; set; }
         [XmlAttribute]
         public string Pass { get; set; }
+        [XmlAttribute]
+        public string Path { get; set; }
         public List<Realm> Realms { get; set; }
     }
 
@@ -22,6 +24,8 @@ namespace TeamManager
     {
         [XmlAttribute]
         public string Name { get; set; }
+        [XmlAttribute]
+        public string Path { get; set; }
         public List<Toon> Toons { get; set; }
     }
 }

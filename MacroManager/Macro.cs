@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using TeamManager;
 
-namespace JambaManager
+namespace MacroManager
 {
     [Serializable]
     public class ModifierKey
@@ -36,7 +37,26 @@ namespace JambaManager
             new ModifierKey {DisplayName = "Left Control", Name = "lctrl"}
         };
 
-        public string BuildString()
+        public static MacroModifier CreateFromFTL(FTLOptions options)
+        {
+            var modifier = new MacroModifier();
+            modifier.DifferentiateSides = true;
+            modifier.LCtrl = options.UseLCtrl == true ? (bool?)true : null;
+            modifier.LAlt = options.UseLAlt == true ? (bool?)true : null;
+            modifier.LShift = options.UseLShift == true ? (bool?)true : null;
+            modifier.RCtrl = options.UseRCtrl == true ? (bool?)true : null;
+            modifier.RAlt = options.UseRAlt == true ? (bool?)true : null;
+            modifier.RShift = options.UseRShift == true ? (bool?)true : null;
+
+            return modifier;
+        }
+
+        public bool Empty()
+        {
+            return LCtrl == null && LAlt == null && LShift == null && RCtrl == null && RAlt == null && RShift == null;
+        }
+
+        public string BuildString(bool brackets = false)
         {
             var sb = new StringBuilder();
 
@@ -64,9 +84,11 @@ namespace JambaManager
 
             if (!string.IsNullOrWhiteSpace(modifierString))
             {
-                sb.Append("[");
+                if (brackets)
+                    sb.Append("[");
                 sb.Append(modifierString);
-                sb.Append("]");
+                if (brackets)
+                    sb.Append("]");
             }
 
             return sb.ToString();
@@ -85,24 +107,30 @@ namespace JambaManager
         }
     }
 
+    public class Target
+    {
+        public string TargetName { get; set; }
+        public MacroModifier Modifier { get; set; }
+    }
+
     public class ItemUse
     {
         public string ItemName { get; set; }
+        public Target MacroTarget { get; set; }
+        public MacroModifier Modifier { get; set; }
     }
 
-    public class SingleCast
+    public class SpellCast
     {
         public string SpellName { get; set; }
+        public Target MacroTarget { get; set; }
+        public MacroModifier Modifier { get; set; }
     }
 
     public class CastSequence
     {
-        public IList<string> SpellNames { get; set; }
+        public IList<SpellCast> Spells { get; set; }
         public string ResetString { get; set; }
-    }
-
-    public class ItemEquip
-    {
     }
 
     public class Macro
@@ -110,30 +138,50 @@ namespace JambaManager
         public string Name { get; set; }
         public string ClickName { get; set; }
         public string Icon { get; set; }
+        public string MacroText { get; set; }
 
         public MacroModifier StopMacroModifier { get; set; }
 
+        public IList<Target> TargetNames { get; set; }
         public IList<ItemUse> ItemUses { get; set; }
-        public IList<ItemEquip> ItemEquips { get; set; }
-        public IList<SingleCast> SingleCasts { get; set; }
+        public IList<SpellCast> SingleCasts { get; set; }
         public IList<CastSequence> CastSequences { get; set; }
 
-        public string BuildMacro()
+        public void BuildTargetMacro()
         {
             StringBuilder macroBuilder = new StringBuilder();
 
             macroBuilder.Append(StopMacroModifier != null ? string.Format("/stopmacro {0}", StopMacroModifier.BuildString()) : string.Empty);
 
-            foreach (var itemUse in ItemUses)
+            if(TargetNames.Any())
             {
-                //macroBuilder.Append(itemUse.BuildString());
+                macroBuilder.Append("/target ");
+                if(TargetNames.Count>1)
+                {
+                    foreach (var target in TargetNames)
+                    {
+                        if (target.Modifier.Empty())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            macroBuilder.AppendFormat("[{0},target={1}]", target.Modifier.BuildString(), target.TargetName);
+                        }
+                    }
+                }
+                else
+                {
+                    macroBuilder.Append(TargetNames.First().TargetName);
+                }
             }
 
-            return string.Empty;
+            MacroText = macroBuilder.ToString();
         }
-    }
 
-    public class JambaManager
-    {
+        public void PopulateTargets(Team team)
+        {
+            TargetNames = team.ToonsInTeam.Select(s => new Target { Modifier = MacroModifier.CreateFromFTL(s.FTLOptions), TargetName = s.Name }).ToList();
+        }
     }
 }
