@@ -80,16 +80,18 @@ namespace AddonManager
 
                 BeginFunction(sb, "OnInitialize");
                 AddFunctionCall(sb, "CreateFollowButton");
-                FunctionEnd(sb);
+                WriteEnd(sb);
                 sb.AppendLine();
 
 
                 BeginFunction(sb, "CreateFollowButton");
                 var macro = new Macro();
-                macro.PopulateTargets(activeTeam);
-                macro.BuildTargetMacro();
-                CreateMacroActionButton(sb,"MBTargetButton", "F", macro.MacroText);
-                FunctionEnd(sb);
+                macro.BuildFTLTargetMacro(activeTeam);
+                macro.SetHotKey("F", false);
+                CreateMacroActionButton(sb, "MBTargetButton", macro.MacroText);
+                if (macro.HotKey != null && !macro.HotKey.Disabled)
+                    AddBinding(sb, "MBTargetButton", $"{macro.HotKey.HotKey}");
+                WriteEnd(sb);
                 sb.AppendLine();
 
                 BeginFunction(sb, "OnLogin");
@@ -98,7 +100,7 @@ namespace AddonManager
                 CreateMacroMove(sb, "MBLogout", (int)Constants.MBConstants.ActionBarSlots.ActionBar1.Slot3);
                 CreateMacroMove(sb, "MBLoot", (int)Constants.MBConstants.ActionBarSlots.ActionBar1.Slot4);
                 CreateMacroMove(sb, "MBResetView", (int)Constants.MBConstants.ActionBarSlots.ActionBar1.Slot5);
-                FunctionEnd(sb);
+                WriteEnd(sb);
                 sb.AppendLine();
 
                 RegisterEvents(sb);
@@ -109,7 +111,12 @@ namespace AddonManager
 
         }
 
-        void CreateActionButton(StringBuilder sb, string actionButtonName, string actionButtonType, string key, bool hide = true)
+        void BuildStockMacros(Team activeTeam)
+        {
+
+        }
+
+        void CreateActionButton(StringBuilder sb, string actionButtonName, string actionButtonType, bool hide = true)
         {
             sb.AppendLine($"\t{actionButtonName} = CreateFrame(\"Button\",\"{actionButtonName}\",nil,\"SecureActionButtonTemplate\");");
             sb.AppendLine($"\t{actionButtonName}:SetAttribute(\"type\",\"{actionButtonType}\");");
@@ -127,9 +134,9 @@ namespace AddonManager
             sb.AppendLine($"\t{actionButtonName}:SetAttribute(\"{attributeName}\",\"{attributeProperty}\");");
         }
 
-        void CreateMacroActionButton(StringBuilder sb, string actionButtonName, string key, string macro)
+        void CreateMacroActionButton(StringBuilder sb, string actionButtonName, string macro)
         {
-            CreateActionButton(sb, actionButtonName, "macro", key);
+            CreateActionButton(sb, actionButtonName, "macro");
             AddAttribute(sb, actionButtonName, "macrotext", macro);
         }
 
@@ -153,14 +160,19 @@ namespace AddonManager
             sb.AppendLine($"function MBoxManager:{functionName}()");
         }
 
-        void FunctionEnd(StringBuilder sb)
+        void WriteEnd(StringBuilder sb)
         {
             sb.AppendLine("end");
         }
 
         void CreateMacroMove(StringBuilder sb, string macroName, int slot)
         {
-            sb.AppendLine($"\tif GetActionText({slot})~=\"{macroName}\" then\n\t\tPickupMacro(\"{macroName}\");\n\t\tPlaceAction({slot});\n\t\tClearCursor();\n\t\tChatFrame1:AddMessage(\"Replaced {macroName} on ActionSlot{slot}\");\n\tend");
+            sb.AppendLine($"\tif GetActionText({slot})~=\"{macroName}\" then");
+            sb.AppendLine($"\t\tPickupMacro(\"{macroName}\");");
+            sb.AppendLine($"\t\tPlaceAction({slot});");
+            sb.AppendLine("\t\tClearCursor();");
+            sb.AppendLine($"\t\tChatFrame1:AddMessage(\"Replaced {macroName} on ActionSlot{slot}\");");
+            sb.AppendLine("\tend");
         }
     }
 }

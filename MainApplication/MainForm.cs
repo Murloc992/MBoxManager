@@ -355,8 +355,6 @@ namespace MainApplication
 
         private void BuildMacros_Click(object sender, EventArgs e)
         {
-            var macroManager = new MBMacroManager();
-            macroManager.SaveMacros(_teamManager.TeamList.ActiveTeam);
         }
 
         private void rESETToolStripMenuItem_Click(object sender, EventArgs e)
@@ -371,7 +369,7 @@ namespace MainApplication
 
         private void BuildAddon_Click(object sender, EventArgs e)
         {
-            _addonManager.CreateTargetMacroButton(_teamManager.TeamList.ActiveTeam);
+            _addonManager.BuildAddon(_teamManager.TeamList.ActiveTeam);
         }
     }
 }

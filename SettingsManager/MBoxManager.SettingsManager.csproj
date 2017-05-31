@@ -52,10 +52,6 @@
       <Project>{8521289d-d2c9-4dfa-b317-abcb83a3c876}</Project>
       <Name>MBoxManager.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HKNManager\MBoxManager.HKNManager.csproj">
-      <Project>{bc63948e-f062-4bed-9a48-4eb5e8f5da90}</Project>
-      <Name>MBoxManager.HKNManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JambaManager\MBoxManager.JambaManager.csproj">
       <Project>{52f09f3b-f1ae-42e5-aade-8cc0ae339952}</Project>
       <Name>MBoxManager.JambaManager</Name>

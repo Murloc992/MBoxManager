@@ -13,6 +13,8 @@ namespace TeamManager
 
         public List<TeamToon> ToonsInTeam { get; set; }
 
+        public List<MBMacro> TeamMacros { get; set; }
+
         public Team()
         {
             ToonsInTeam = new List<TeamToon>();

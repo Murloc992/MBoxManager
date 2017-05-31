@@ -32,22 +32,18 @@ namespace MacroManager
 
         public bool DifferentiateSides { get; set; }
 
-        public static List<ModifierKey> DifferentialModifierKeys = new List<ModifierKey>
-        {
-            new ModifierKey {DisplayName = "Left Control", Name = "lctrl"}
-        };
-
         public static MacroModifier CreateFromFTL(FTLOptions options)
         {
-            var modifier = new MacroModifier();
-            modifier.DifferentiateSides = true;
-            modifier.LCtrl = options.UseLCtrl == true ? (bool?)true : null;
-            modifier.LAlt = options.UseLAlt == true ? (bool?)true : null;
-            modifier.LShift = options.UseLShift == true ? (bool?)true : null;
-            modifier.RCtrl = options.UseRCtrl == true ? (bool?)true : null;
-            modifier.RAlt = options.UseRAlt == true ? (bool?)true : null;
-            modifier.RShift = options.UseRShift == true ? (bool?)true : null;
-
+            var modifier = new MacroModifier()
+            {
+                DifferentiateSides = true,
+                LCtrl = options.UseLCtrl == true ? (bool?)true : null,
+                LAlt = options.UseLAlt == true ? (bool?)true : null,
+                LShift = options.UseLShift == true ? (bool?)true : null,
+                RCtrl = options.UseRCtrl == true ? (bool?)true : null,
+                RAlt = options.UseRAlt == true ? (bool?)true : null,
+                RShift = options.UseRShift == true ? (bool?)true : null
+            };
             return modifier;
         }
 
@@ -139,6 +135,9 @@ namespace MacroManager
         public string ClickName { get; set; }
         public string Icon { get; set; }
         public string MacroText { get; set; }
+        public int ActionSlot { get; set; }
+        public int ActionSlotName { get; set; }
+        public MBHotKey HotKey { get; set; }
 
         public MacroModifier StopMacroModifier { get; set; }
 
@@ -147,8 +146,20 @@ namespace MacroManager
         public IList<SpellCast> SingleCasts { get; set; }
         public IList<CastSequence> CastSequences { get; set; }
 
-        public void BuildTargetMacro()
+        public void SetHotKey(string hotkey, bool roundRobin, bool disabled=false)
         {
+            HotKey = new MBHotKey
+            {
+                HotKey = hotkey,
+                RoundRobin = roundRobin,
+                Disabled = disabled
+            };
+        }
+
+        public void BuildFTLTargetMacro(Team team)
+        {
+            PopulateTargets(team);
+
             StringBuilder macroBuilder = new StringBuilder();
 
             macroBuilder.Append(StopMacroModifier != null ? string.Format("/stopmacro {0}", StopMacroModifier.BuildString()) : string.Empty);
@@ -179,7 +190,7 @@ namespace MacroManager
             MacroText = macroBuilder.ToString();
         }
 
-        public void PopulateTargets(Team team)
+        void PopulateTargets(Team team)
         {
             TargetNames = team.ToonsInTeam.Select(s => new Target { Modifier = MacroModifier.CreateFromFTL(s.FTLOptions), TargetName = s.Name }).ToList();
         }
